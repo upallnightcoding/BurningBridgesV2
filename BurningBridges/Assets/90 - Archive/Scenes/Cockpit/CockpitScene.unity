@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1678,82 +1679,83 @@ MonoBehaviour:
     m_DataPoints:
     - m_Index: 0
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 1
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 2
       m_Value:
-        Value: 10.5
+        Value: -10.5
     - m_Index: 3
       m_Value:
-        Value: 76.2
+        Value: -76.2
     - m_Index: 4
       m_Value:
-        Value: 163.2
+        Value: -163.2
     - m_Index: 5
       m_Value:
-        Value: 296
+        Value: -296
     - m_Index: 6
       m_Value:
-        Value: 345.71
+        Value: -345.71
     - m_Index: 7
       m_Value:
-        Value: 324.28
+        Value: -324.28
     - m_Index: 8
       m_Value:
-        Value: 302.3
+        Value: -302.3
     - m_Index: 9
       m_Value:
-        Value: 305.7
+        Value: -305.7
     - m_Index: 10
       m_Value:
-        Value: 229.99
+        Value: -229.99
     - m_Index: 11
       m_Value:
-        Value: 390.8
+        Value: -390.8
     - m_Index: 12
       m_Value:
-        Value: 344.6
+        Value: -344.6
     - m_Index: 13
       m_Value:
-        Value: 222.2
+        Value: -222.2
     - m_Index: 14
       m_Value:
-        Value: 178.54999
+        Value: -178.54999
     - m_Index: 15
       m_Value:
-        Value: 58.4
+        Value: -58.4
     - m_Index: 16
       m_Value:
-        Value: -62.2
+        Value: 62.2
     - m_Index: 17
       m_Value:
-        Value: -35.4
+        Value: 35.4
     - m_Index: 18
       m_Value:
-        Value: -4.800001
+        Value: 4.800001
     - m_Index: 19
       m_Value:
-        Value: 25.8
+        Value: -25.8
     - m_Index: 20
       m_Value:
-        Value: 57.550003
+        Value: -57.550003
     - m_Index: 21
       m_Value:
-        Value: 89.3
+        Value: -89.3
     - m_Index: 22
       m_Value:
-        Value: 53.850002
+        Value: -53.850002
     - m_Index: 23
       m_Value:
-        Value: 18.4
+        Value: -18.4
     - m_Index: 24
       m_Value:
-        Value: 18.4
+        Value: -18.4
     - m_Index: 25
       m_Value:
-        Value: 18.4
+        Value: -18.4
+  m_StreamingVersion: 20241001
 --- !u!1001 &227875472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11941,25 +11943,26 @@ MonoBehaviour:
     m_DataPoints:
     - m_Index: 0
       m_Value:
-        Value: 270
+        Value: -270
     - m_Index: 1
       m_Value:
-        Value: 90
+        Value: -90
     - m_Index: 2
       m_Value:
-        Value: -48.29
+        Value: 48.29
     - m_Index: 3
       m_Value:
-        Value: -121.27
+        Value: 121.27
     - m_Index: 4
       m_Value:
-        Value: -211.7
+        Value: 211.7
     - m_Index: 5
       m_Value:
-        Value: -572.88
+        Value: 572.88
     - m_Index: 6
       m_Value:
-        Value: -451
+        Value: 451
+  m_StreamingVersion: 20241001
 --- !u!114 &1510588269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13208,49 +13211,50 @@ MonoBehaviour:
     m_DataPoints:
     - m_Index: 0
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 1
       m_Value:
-        Value: 10.5
+        Value: -10.5
     - m_Index: 2
       m_Value:
-        Value: 163.2
+        Value: -163.2
     - m_Index: 3
       m_Value:
-        Value: 345.71
+        Value: -345.71
     - m_Index: 4
       m_Value:
-        Value: 302.3
+        Value: -302.3
     - m_Index: 5
       m_Value:
-        Value: 305.7
+        Value: -305.7
     - m_Index: 6
       m_Value:
-        Value: 390.8
+        Value: -390.8
     - m_Index: 7
       m_Value:
-        Value: 222.2
+        Value: -222.2
     - m_Index: 8
       m_Value:
-        Value: 58.4
+        Value: -58.4
     - m_Index: 9
       m_Value:
-        Value: 11.5
+        Value: -11.5
     - m_Index: 10
       m_Value:
-        Value: -35.4
+        Value: 35.4
     - m_Index: 11
       m_Value:
-        Value: 25.8
+        Value: -25.8
     - m_Index: 12
       m_Value:
-        Value: 57.550003
+        Value: -57.550003
     - m_Index: 13
       m_Value:
-        Value: 89.3
+        Value: -89.3
     - m_Index: 14
       m_Value:
-        Value: 18.4
+        Value: -18.4
+  m_StreamingVersion: 20241001
 --- !u!95 &1740255580
 Animator:
   serializedVersion: 7
@@ -13729,46 +13733,47 @@ MonoBehaviour:
     m_DataPoints:
     - m_Index: 0
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 1
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 2
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 3
       m_Value:
-        Value: 68.1
+        Value: -68.1
     - m_Index: 4
       m_Value:
-        Value: 221.3
+        Value: -221.3
     - m_Index: 5
       m_Value:
-        Value: 300.9
+        Value: -300.9
     - m_Index: 6
       m_Value:
-        Value: 406.71
+        Value: -406.71
     - m_Index: 7
       m_Value:
-        Value: 340.5
+        Value: -340.5
     - m_Index: 8
       m_Value:
-        Value: 395.7
+        Value: -395.7
     - m_Index: 9
       m_Value:
-        Value: 360
+        Value: -360
     - m_Index: 10
       m_Value:
-        Value: 310
+        Value: -310
     - m_Index: 11
       m_Value:
-        Value: 400.7
+        Value: -400.7
     - m_Index: 12
       m_Value:
-        Value: 425.1
+        Value: -425.1
     - m_Index: 13
       m_Value:
-        Value: 441.7
+        Value: -441.7
+  m_StreamingVersion: 20241001
 --- !u!1 &1749768014
 GameObject:
   m_ObjectHideFlags: 0
@@ -14671,55 +14676,56 @@ MonoBehaviour:
     m_DataPoints:
     - m_Index: 0
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 1
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 2
       m_Value:
-        Value: 0
+        Value: -0
     - m_Index: 3
       m_Value:
-        Value: 72
+        Value: -72
     - m_Index: 4
       m_Value:
-        Value: 191.7
+        Value: -191.7
     - m_Index: 5
       m_Value:
-        Value: 300.9
+        Value: -300.9
     - m_Index: 6
       m_Value:
-        Value: 333.4
+        Value: -333.4
     - m_Index: 7
       m_Value:
-        Value: 340.5
+        Value: -340.5
     - m_Index: 8
       m_Value:
-        Value: 363.7
+        Value: -363.7
     - m_Index: 9
       m_Value:
-        Value: 253.5
+        Value: -253.5
     - m_Index: 10
       m_Value:
-        Value: 310
+        Value: -310
     - m_Index: 11
       m_Value:
-        Value: 474.7
+        Value: -474.7
     - m_Index: 12
       m_Value:
-        Value: 319.7
+        Value: -319.7
     - m_Index: 13
       m_Value:
-        Value: 234.7
+        Value: -234.7
     - m_Index: 14
       m_Value:
-        Value: 433.40002
+        Value: -433.40002
     - m_Index: 15
       m_Value:
-        Value: 307.4
+        Value: -307.4
     - m_Index: 16
       m_Value:
-        Value: 288.3
+        Value: -288.3
+  m_StreamingVersion: 20241001
 --- !u!114 &1882919463
 MonoBehaviour:
   m_ObjectHideFlags: 0
