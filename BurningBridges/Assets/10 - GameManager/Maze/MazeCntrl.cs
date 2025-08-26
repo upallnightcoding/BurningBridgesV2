@@ -6,7 +6,7 @@ public class MazeCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject mazeNodePrefab;
 
-    private float size = 15.5f;
+    private float size = 30.69f;
     private int width = 5;
     private int height = 5;
 
@@ -17,9 +17,12 @@ public class MazeCntrl : MonoBehaviour
     private int pathSize = 0;
     private MazeNode[] mazePath = null;
 
+    private Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponent<Animator>();
         InitializeMaze();
 
         CreateMaze();
