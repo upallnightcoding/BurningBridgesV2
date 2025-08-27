@@ -4,44 +4,81 @@ using UnityEngine.UI;
 
 public class MazeNodeCntrl : MonoBehaviour
 {
-    //[SerializeField] private GameObject nodeBase;
     [SerializeField] private GameObject northLink;
     [SerializeField] private GameObject southLink;
     [SerializeField] private GameObject eastLink;
     [SerializeField] private GameObject westLink;
 
-    private void SetNorthLink() => northLink.SetActive(false);
-    private void SetSouthLink() => southLink.SetActive(false);
-    private void SetEastLink() => eastLink.SetActive(false);
-    private void SetWestLink() => westLink.SetActive(false);
+    [SerializeField] private GameObject roadCrossNode;
+    [SerializeField] private GameObject roadTNode;
+    [SerializeField] private GameObject readCornerNode;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void SetNorthLink()     => northLink.SetActive(false);
+    private void SetSouthLink()     => southLink.SetActive(false);
+    private void SetEastLink()      => eastLink.SetActive(false);
+    private void SetWestLink()      => westLink.SetActive(false);
+
     void Start()
     {
-        //northLink.SetActive(false);
-        //southLink.SetActive(false);
-        //eastLink.SetActive(false);
-        //westLink.SetActive(false);
+
     }
 
-    public void Set(MazeNode node)
+    private void SetupLinks(MazeNode node)
     {
         if (node.NorthNode == null) SetNorthLink();
         if (node.SouthNode == null) SetSouthLink();
         if (node.EastNode == null) SetEastLink();
         if (node.WestNode == null) SetWestLink();
+    }
 
-        /*switch(node.GetMazeNodeType())
+    public void SetCrossNode(MazeNode node)
+    {
+        SetupLinks(node);
+
+        roadCrossNode.SetActive(true);
+    }
+
+    public void SetTNode(MazeNode node, MazeNodeDir direction)
+    {
+        SetupLinks(node);
+
+        roadTNode.SetActive(true);
+
+        switch(direction)
         {
-            case MazeNodeType.STARTING:
-                nodeBase.GetComponent<Renderer>().material.color = Color.green;
+            case MazeNodeDir.NORTH:
                 break;
-            case MazeNodeType.ENDING:
-                nodeBase.GetComponent<Renderer>().material.color = Color.red;
+            case MazeNodeDir.SOUTH:
+                roadTNode.transform.Rotate(0.0f, 180.0f, 0.0f);
                 break;
-            case MazeNodeType.PATH:
-                nodeBase.GetComponent<Renderer>().material.color = Color.blue;
+            case MazeNodeDir.EAST:
+                roadTNode.transform.Rotate(0.0f, 90.0f, 0.0f);
                 break;
-        }*/
+            case MazeNodeDir.WEST:
+                roadTNode.transform.Rotate(0.0f, -90.0f, 0.0f);
+                break;
+        }
+    }
+
+    public void SetCornerNode(MazeNode node, MazeNodeDir direction)
+    {
+        SetupLinks(node);
+
+        readCornerNode.SetActive(true);
+
+        switch (direction)
+        {
+            case MazeNodeDir.NORTH:
+                break;
+            case MazeNodeDir.SOUTH:
+                readCornerNode.transform.Rotate(0.0f, 180.0f, 0.0f);
+                break;
+            case MazeNodeDir.EAST:
+                readCornerNode.transform.Rotate(0.0f, 90.0f, 0.0f);
+                break;
+            case MazeNodeDir.WEST:
+                readCornerNode.transform.Rotate(0.0f, -90.0f, 0.0f);
+                break;
+        }
     }
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class MazeNode
 {
-
     public MazeNode NorthNode { get; set; } = null;
     public MazeNode SouthNode { get; set; } = null;
     public MazeNode EastNode { get; set; } = null;
@@ -22,8 +21,7 @@ public class MazeNode
 
     public MazeNodeType GetMazeNodeType() => type;
 
-    public void SetDir(MazeNodeDir direction) => 
-        this.direction = direction;
+    public void SetDir(MazeNodeDir direction) => this.direction = direction;
 
     public MazeNodeDir GetDir() => direction;
 
@@ -48,21 +46,9 @@ public class MazeNode
         Debug.Log($"w/h/status {msg}: {w}/{h}/{status}");
     }
 
-    public void MarkAsStartNode()
-    {
-        type = MazeNodeType.STARTING;
-    }
-
-    public void MarkAsEndingNode()
-    {
-        type = MazeNodeType.ENDING;
-    }
-
-    public void MarkAsPathNode()
-    {
-        type = MazeNodeType.PATH;
-    }
-   
+    public void MarkAsStartNode()   => type = MazeNodeType.STARTING;
+    public void MarkAsEndingNode()  => type = MazeNodeType.ENDING;
+    public void MarkAsPathNode()    => type = MazeNodeType.PATH;
 }
 
 public enum MazeNodeType

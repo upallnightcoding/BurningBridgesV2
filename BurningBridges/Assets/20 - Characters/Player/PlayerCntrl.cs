@@ -7,8 +7,12 @@ public class PlayerCntrl : MonoBehaviour
     private float rotationSpeed = 400.0f;
 
     private Vector2 playerMove;
+    private Vector2 prevPlayerMove;
 
     private Vector3 moveDirection;
+
+    private int shutOffXAxis = 1;
+    private int shutOffZAxis = 1;
 
     private CharacterController charCntrl;
 
@@ -19,9 +23,9 @@ public class PlayerCntrl : MonoBehaviour
 
     void Update()
     {
-        moveDirection.x = playerMove.x; // Horizontal
+        moveDirection.x = playerMove.x * shutOffXAxis; // Horizontal
         moveDirection.y = 0.0f;
-        moveDirection.z = playerMove.y; // Vertical
+        moveDirection.z = playerMove.y * shutOffZAxis; // Vertical
 
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude);
 
@@ -29,7 +33,7 @@ public class PlayerCntrl : MonoBehaviour
 
         if (moveDirection != Vector3.zero)
         {
-            Debug.Log($"PlayerMove: {moveDirection}");
+            prevPlayerMove = playerMove;
 
             moveDirection.Normalize();
 
@@ -40,15 +44,51 @@ public class PlayerCntrl : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-
-            Debug.Log($"Move: {transform.position}");
         }
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         playerMove = context.ReadValue<Vector2>();
+    }
 
-        
+    public void EnteringTurningBox()
+    {
+        Debug.Log("EnteringTurningBox ...");
+
+        shutOffXAxis = 1;
+        shutOffZAxis = 1;
+    }
+
+    public void ExitingTurningBox()
+    {
+        Debug.Log($"ExitingTurningBox Enter ...{prevPlayerMove}");
+
+        if (prevPlayerMove.x != 0) shutOffZAxis = 0;
+        if (prevPlayerMove.y != 0) shutOffXAxis = 0;
+
+        /*if (prevPlayerMove.x > prevPlayerMove.y)
+        {
+            shutOffXAxis = 1;
+            shutOffZAxis = 0;
+        } else
+        {
+            shutOffXAxis = 0;
+            shutOffZAxis = 1;
+        }*/
+
+        Debug.Log($"ExitingTurningBox Exit ...{shutOffXAxis}/{shutOffZAxis}");
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnEnteringTurningBox += EnteringTurningBox;
+        EventManager.Instance.OnExitingTurningBox += ExitingTurningBox;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnEnteringTurningBox -= EnteringTurningBox;
+        EventManager.Instance.OnExitingTurningBox -= ExitingTurningBox;
     }
 }

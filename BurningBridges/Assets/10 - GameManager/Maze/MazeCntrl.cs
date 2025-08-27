@@ -162,14 +162,53 @@ public class MazeCntrl : MonoBehaviour
             {
                 GameObject go = Instantiate(mazeNodePrefab, gameObject.transform);
                 go.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
-                //yield return null;
 
-                go.GetComponent<MazeNodeCntrl>().Set(mazeNode[w, h]);
+                if ((w == 0) && (h == 0))
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.SOUTH);
+                } 
+                else if ((w == (width-1)) && (h == (height-1))) {
+                    go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.NORTH);
+                } 
+                else if ((w == 0) && (h == (height - 1)))
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.WEST);
+                } 
+                else if ((h == 0) && (w == (width - 1)))
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.EAST);
+                }
+                else if (w == 0)
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.WEST);
+                } 
+                else if (h == 0)
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.SOUTH);
+                } 
+                else if (w == (width - 1))
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.EAST);
+                } 
+                else if (h == (height - 1))
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.NORTH);
+                } 
+                else
+                {
+                    go.GetComponent<MazeNodeCntrl>().SetCrossNode(mazeNode[w, h]);
+                }
+
             }
         }
 
     }
 
+    /**
+     * IsOnBoard() - Determines if the w,h coordinate is on the maze 
+     * board.  If it is not, a false is returned else true is
+     * returned to the caller.
+     */
     private bool IsOnBoard(int w, int h)
     {
         return (((w >= 0) && (w < width)) && ((h >= 0) && (h < height)));
