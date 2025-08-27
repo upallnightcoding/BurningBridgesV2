@@ -31,6 +31,21 @@ public class MazeCntrl : MonoBehaviour
         RenderMaze();
     }
 
+    private void OnDrawGizmos()
+    {
+        if (pathSize > 0)
+        {
+            for (int i = 1; i < pathSize; i++)
+            {
+                Gizmos.color = Color.red;
+
+                Vector3 posStart = new Vector3(mazePath[i - 1].Getw() * size, 0.0f, mazePath[i - 1].Geth() * size);
+                Vector3 posEnd = new Vector3(mazePath[i].Getw() * size, 0.0f, mazePath[i].Geth() * size);
+                Gizmos.DrawLine(posStart, posEnd);
+            }
+        }
+    }
+
     private void CreateMaze()
     {
         while (mazeNodeStack.Count != 0)
@@ -167,14 +182,15 @@ public class MazeCntrl : MonoBehaviour
                 {
                     go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.SOUTH);
                 } 
-                else if ((w == (width-1)) && (h == (height-1))) {
+                else if ((w == (width-1)) && (h == (height-1))) 
+                {
                     go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.NORTH);
                 } 
-                else if ((w == 0) && (h == (height - 1)))
+                else if ((w == 0) && (h == (height-1)))
                 {
                     go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.WEST);
                 } 
-                else if ((h == 0) && (w == (width - 1)))
+                else if ((h == 0) && (w == (width-1)))
                 {
                     go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.EAST);
                 }
