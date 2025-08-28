@@ -1,9 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
 
 public class PlayerCntrl : MonoBehaviour
 {
-    private float maximumSpeed = 20.0f;
+    [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private Transform FirePoint;
+
+    private float maximumSpeed = 10.0f;
     private float rotationSpeed = 400.0f;
 
     private Vector2 playerMove;
@@ -11,21 +16,24 @@ public class PlayerCntrl : MonoBehaviour
 
     private Vector3 moveDirection;
 
-    private int shutOffXAxis = 1;
-    private int shutOffZAxis = 1;
+    //private int shutOffXAxis = 1;
+    //private int shutOffZAxis = 1;
 
-    private CharacterController charCntrl;
+    private NavMeshAgent navMeshAgent = null;
+
+    //private CharacterController charCntrl;
 
     void Start()
     {
-        charCntrl = GetComponent<CharacterController>();
+        //charCntrl = GetComponent<CharacterController>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     void Update()
     {
-        moveDirection.x = playerMove.x * shutOffXAxis; // Horizontal
+        moveDirection.x = playerMove.x; // * shutOffXAxis; // Horizontal
         moveDirection.y = 0.0f;
-        moveDirection.z = playerMove.y * shutOffZAxis; // Vertical
+        moveDirection.z = playerMove.y; // * shutOffZAxis; // Vertical
 
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude);
 
@@ -39,7 +47,7 @@ public class PlayerCntrl : MonoBehaviour
 
             Vector3 velocity = inputMagnitude * maximumSpeed * moveDirection;
 
-            charCntrl.Move(velocity * Time.deltaTime);
+            navMeshAgent.Move(velocity * Time.deltaTime);
 
             Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
@@ -52,20 +60,30 @@ public class PlayerCntrl : MonoBehaviour
         playerMove = context.ReadValue<Vector2>();
     }
 
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            GameObject go = Instantiate(weaponPrefab);
+            go.transform.localRotation = Quaternion.Euler(-45.0f, 0.0f, 0.0f);
+            go.transform.position = FirePoint.position;
+        }
+    }
+
     public void EnteringTurningBox()
     {
         Debug.Log("EnteringTurningBox ...");
 
-        shutOffXAxis = 1;
-        shutOffZAxis = 1;
+        //shutOffXAxis = 1;
+        //shutOffZAxis = 1;
     }
 
     public void ExitingTurningBox()
     {
         Debug.Log($"ExitingTurningBox Enter ...{prevPlayerMove}");
 
-        if (prevPlayerMove.x != 0) shutOffZAxis = 0;
-        if (prevPlayerMove.y != 0) shutOffXAxis = 0;
+        //if (prevPlayerMove.x != 0) shutOffZAxis = 0;
+        //if (prevPlayerMove.y != 0) shutOffXAxis = 0;
 
         /*if (prevPlayerMove.x > prevPlayerMove.y)
         {
@@ -77,7 +95,7 @@ public class PlayerCntrl : MonoBehaviour
             shutOffZAxis = 1;
         }*/
 
-        Debug.Log($"ExitingTurningBox Exit ...{shutOffXAxis}/{shutOffZAxis}");
+        //Debug.Log($"ExitingTurningBox Exit ...{shutOffXAxis}/{shutOffZAxis}");
     }
 
     private void OnEnable()

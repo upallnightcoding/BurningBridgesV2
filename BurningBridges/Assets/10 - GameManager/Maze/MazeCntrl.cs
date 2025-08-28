@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using System.Collections;
 
 public class MazeCntrl : MonoBehaviour
@@ -17,18 +18,22 @@ public class MazeCntrl : MonoBehaviour
     private int pathSize = 0;
     private MazeNode[] mazePath = null;
 
-    private Animator animator;
+    private NavMeshSurface navMeshSurface = null;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        navMeshSurface = GetComponent<NavMeshSurface>();
+    }
+
     void Start()
     {
-        animator = GetComponent<Animator>();
         InitializeMaze();
 
         CreateMaze();
 
-        //StartCoroutine(RenderMaze());
         RenderMaze();
+
+        navMeshSurface.BuildNavMesh();
     }
 
     private void OnDrawGizmos()
