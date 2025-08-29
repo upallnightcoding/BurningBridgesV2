@@ -7,9 +7,9 @@ public class MazeNode
     public MazeNode EastNode { get; set; } = null;
     public MazeNode WestNode { get; set; } = null;
 
-    public MazeNodeStatus status = MazeNodeStatus.OPEN;
+    public MazeNodeType Type { get; set; } = MazeNodeType.EMPTY;
 
-    public MazeNodeType type = MazeNodeType.EMPTY;
+    public MazeNodeStatus status = MazeNodeStatus.OPEN;
 
     private int w = 0;
     private int h = 0;
@@ -18,8 +18,6 @@ public class MazeNode
 
     public int Getw() => w;
     public int Geth() => h;
-
-    public MazeNodeType GetMazeNodeType() => type;
 
     public void SetDir(MazeNodeDir direction) => this.direction = direction;
 
@@ -36,19 +34,19 @@ public class MazeNode
         return (status == MazeNodeStatus.OPEN);
     }
 
+    public void PrintIt(string text)
+    {
+        //Debug.Log($"{text} => w:{w},h:{h},Type:{Type.ToString()}");
+    }
+
     public void MarkNodeAsClosed()
     {
         status = MazeNodeStatus.CLOSED;
     }
 
-    public void PrintIt(string msg)
-    {
-        Debug.Log($"w/h/status {msg}: {w}/{h}/{status}");
-    }
-
-    public void MarkAsStartNode()   => type = MazeNodeType.STARTING;
-    public void MarkAsEndingNode()  => type = MazeNodeType.ENDING;
-    public void MarkAsPathNode()    => type = MazeNodeType.PATH;
+    public void MarkAsStartNode()   => Type = MazeNodeType.STARTING;
+    public void MarkAsEndingNode()  => Type = MazeNodeType.ENDING;
+    public void MarkAsPathNode()    => Type = MazeNodeType.PATH;
 }
 
 public enum MazeNodeType

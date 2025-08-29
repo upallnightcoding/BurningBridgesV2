@@ -31,9 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1230931406222477170}
-  - {fileID: 6171334437510802928}
   - {fileID: 6752315024388938704}
-  - {fileID: 1043999307448924667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7351418224417666380
@@ -55,6 +53,8 @@ MonoBehaviour:
   roadCrossNode: {fileID: 7232881370480219283}
   roadTNode: {fileID: 4081212477239734791}
   readCornerNode: {fileID: 2081660530138224209}
+  startSign: {fileID: 395221929553471361, guid: 2f7dacfb3df84ae468db95d1eaf0d134, type: 3}
+  endCastle: {fileID: 2685066341366530602, guid: af9d2751d2e22b94f859430778a0f5c4, type: 3}
 --- !u!1 &1607332306062502194
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,37 +88,6 @@ Transform:
   - {fileID: 4441250925640846406}
   - {fileID: 5180292373309069170}
   - {fileID: 2285561335534399930}
-  m_Father: {fileID: 2794124097608591882}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1980867528070297855
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1043999307448924667}
-  m_Layer: 0
-  m_Name: Props
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1043999307448924667
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1980867528070297855}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 2794124097608591882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4799253638422554163
@@ -261,73 +230,6 @@ Transform:
   - {fileID: 4933561390255690785}
   m_Father: {fileID: 7235440500656402593}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &6314917812672768494
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6171334437510802928}
-  - component: {fileID: 3272152753330237905}
-  - component: {fileID: 421098810775391812}
-  m_Layer: 0
-  m_Name: TurningBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6171334437510802928
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6314917812672768494}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.53, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2794124097608591882}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3272152753330237905
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6314917812672768494}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 4.4, y: 3.0179493, z: 4.4}
-  m_Center: {x: 0.06633937, y: 1.0089747, z: -0.03356743}
---- !u!114 &421098810775391812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6314917812672768494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df82c1f4a4dd3e949a446d210d9c1bc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mazeNodeCntrl: {fileID: 0}
 --- !u!1 &7937563440644056102
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6752315024388938704}
+  - component: {fileID: 8251754572866373631}
   m_Layer: 0
   m_Name: MazeNode
   m_TagString: Untagged
@@ -362,6 +265,27 @@ Transform:
   - {fileID: 2086531598684297143}
   m_Father: {fileID: 2794124097608591882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8251754572866373631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7937563440644056102}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 0.22, z: 20}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &236197308835377197
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MazeNodeCntrl : MonoBehaviour
 {
+    // The prefabs are set and therefore the line is not null
+    //-------------------------------------------------------
     [SerializeField] private GameObject northLink;
     [SerializeField] private GameObject southLink;
     [SerializeField] private GameObject eastLink;
@@ -13,34 +15,60 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject roadTNode;
     [SerializeField] private GameObject readCornerNode;
 
-    private void SetNorthLink()     => northLink.SetActive(false);
-    private void SetSouthLink()     => southLink.SetActive(false);
-    private void SetEastLink()      => eastLink.SetActive(false);
-    private void SetWestLink()      => westLink.SetActive(false);
+    [SerializeField] private GameObject startSign;
+    [SerializeField] private GameObject endCastle;
+
+    private MazeNode node = null;
 
     void Start()
     {
 
     }
 
-    private void SetupLinks(MazeNode node)
+    /**
+     * SetupLinks() -
+     */
+    private void CloseAllPaths(MazeNode node)
     {
-        if (node.NorthNode == null) SetNorthLink();
-        if (node.SouthNode == null) SetSouthLink();
-        if (node.EastNode == null) SetEastLink();
-        if (node.WestNode == null) SetWestLink();
+        this.node = node;
+
+        if (node.NorthNode == null) northLink.SetActive(false);
+        if (node.SouthNode == null) southLink.SetActive(false);
+        if (node.EastNode == null) eastLink.SetActive(false);
+        if (node.WestNode == null) westLink.SetActive(false);
+    }
+
+    private void RenderNodeType()
+    {
+        GameObject go = null;
+
+        switch (node.Type)
+        {
+            case MazeNodeType.STARTING:
+                go = Instantiate(startSign, transform);
+                go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                break;
+            case MazeNodeType.ENDING:
+                go = Instantiate(endCastle, transform);
+                go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                break;
+            case MazeNodeType.PATH:
+                break;
+        }
     }
 
     public void SetCrossNode(MazeNode node)
     {
-        SetupLinks(node);
+        CloseAllPaths(node);
 
         roadCrossNode.SetActive(true);
+
+        RenderNodeType();
     }
 
     public void SetTNode(MazeNode node, MazeNodeDir direction)
     {
-        SetupLinks(node);
+        CloseAllPaths(node);
 
         roadTNode.SetActive(true);
 
@@ -58,11 +86,13 @@ public class MazeNodeCntrl : MonoBehaviour
                 roadTNode.transform.Rotate(0.0f, -90.0f, 0.0f);
                 break;
         }
+
+        RenderNodeType();
     }
 
     public void SetCornerNode(MazeNode node, MazeNodeDir direction)
     {
-        SetupLinks(node);
+        CloseAllPaths(node);
 
         readCornerNode.SetActive(true);
 
@@ -80,5 +110,7 @@ public class MazeNodeCntrl : MonoBehaviour
                 readCornerNode.transform.Rotate(0.0f, -90.0f, 0.0f);
                 break;
         }
+
+        RenderNodeType();
     }
 }
