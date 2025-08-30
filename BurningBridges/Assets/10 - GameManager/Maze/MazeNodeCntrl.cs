@@ -25,7 +25,7 @@ public class MazeNodeCntrl : MonoBehaviour
 
     private MazeNode node = null;
 
-    private Transform player = null;
+    private PlayerCntrl playerCntrl = null;
 
     private bool enemyRendered = false;
 
@@ -36,7 +36,7 @@ public class MazeNodeCntrl : MonoBehaviour
 
     private void Update()
     {
-        if((!enemyRendered) && (RandomNumber(2000) == 0) && (node.Type == MazeNodeType.EMPTY))
+        if((!enemyRendered) && (RandomNumber(1000) == 0) && (node.Type == MazeNodeType.ENEMY))
         {
             StartCoroutine(RenderEnemy());
         }
@@ -55,7 +55,7 @@ public class MazeNodeCntrl : MonoBehaviour
         int n = enemiesPrefab.Length;
         GameObject enemy = Instantiate(enemiesPrefab[RandomNumber(n)], transform);
         enemy.transform.localPosition = position;
-        enemy.GetComponent<EnemyCntrl>().Set(player.position);
+        enemy.GetComponent<EnemyCntrl>().Set(playerCntrl);
 
         Destroy(enemyAppear);
     }
@@ -94,9 +94,9 @@ public class MazeNodeCntrl : MonoBehaviour
     /**
      * SetCrossNode() - 
      */
-    public void SetCrossNode(Transform player, MazeNode node)
+    public void SetCrossNode(PlayerCntrl playerCntrl, MazeNode node)
     {
-        this.player = player;
+        this.playerCntrl = playerCntrl;
 
         CloseAllPaths(node);
 
@@ -105,9 +105,9 @@ public class MazeNodeCntrl : MonoBehaviour
         RenderNodeType();
     }
 
-    public void SetTNode(Transform player, MazeNode node, MazeNodeDir direction)
+    public void SetTNode(PlayerCntrl playerCntrl, MazeNode node, MazeNodeDir direction)
     {
-        this.player = player;
+        this.playerCntrl = playerCntrl;
 
         CloseAllPaths(node);
 
@@ -131,9 +131,9 @@ public class MazeNodeCntrl : MonoBehaviour
         RenderNodeType();
     }
 
-    public void SetCornerNode(Transform player, MazeNode node, MazeNodeDir direction)
+    public void SetCornerNode(PlayerCntrl playerCntrl, MazeNode node, MazeNodeDir direction)
     {
-        this.player = player;
+        this.playerCntrl = playerCntrl;
 
         CloseAllPaths(node);
 

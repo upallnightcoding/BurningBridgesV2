@@ -3,11 +3,8 @@ using System;
 
 public class EventManager
 {
-    public event Action OnEnteringTurningBox = delegate { };
-    public void InvokeOnEnterTurningBox() => OnEnteringTurningBox.Invoke();
-
-    public event Action OnExitingTurningBox = delegate { };
-    public void InvokeOnExitingTurningBox() => OnExitingTurningBox.Invoke();
+    public event Action OnPlayerPosition = delegate {};
+    public void InvokeOnPlayerPosition() => OnPlayerPosition.Invoke();
 
     public static EventManager Instance
     {

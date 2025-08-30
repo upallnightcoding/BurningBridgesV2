@@ -5,6 +5,7 @@ using System.Collections;
 
 public class MazeCntrl : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
     [SerializeField] private GameObject mazeNodePrefab;
     [SerializeField] private GameObject player;
 
@@ -47,6 +48,8 @@ public class MazeCntrl : MonoBehaviour
     {
         player.SetActive(true);
         player.transform.position = playerStartPos;
+
+        EventManager.Instance.InvokeOnPlayerPosition();
     }
 
     /**
@@ -62,7 +65,6 @@ public class MazeCntrl : MonoBehaviour
 
             if (neighbors.Count == 0)
             {
-                mazeNodeStack.Peek().PrintIt("Pop: ");
                 mazeNodeStack.Pop();
             }
             else
@@ -70,7 +72,6 @@ public class MazeCntrl : MonoBehaviour
                 MazeNode nextMazeNode = neighbors[RandomNumber(neighbors.Count)];
                 nextMazeNode.MarkNodeAsClosed();
                 mazeNodeStack.Push(nextMazeNode);
-                nextMazeNode.PrintIt("Push: ");
                 SetupNodeLink(currentNode, nextMazeNode);
 
                 if (mazeNodeStack.Count > pathSize)
@@ -120,7 +121,6 @@ public class MazeCntrl : MonoBehaviour
         mazeNodeStack = new Stack<MazeNode>();
         mazeNodeStack.Push(GetRandomMazeNode());
         mazeNodeStack.Peek().MarkNodeAsClosed();
-        mazeNodeStack.Peek().PrintIt("Start");
     }
 
     private List<MazeNode> GetAllNeighbors(MazeNode center)
@@ -162,10 +162,10 @@ public class MazeCntrl : MonoBehaviour
         {
             for (int w = 0; w < width; w++)
             {
-                GameObject mazeNose = Instantiate(mazeNodePrefab, gameObject.transform);
-                mazeNose.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
+                GameObject mazeNode = Instantiate(mazeNodePrefab, gameObject.transform);
+                mazeNode.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
 
-                RenderNode(mazeNose, w, h);
+                RenderNode(mazeNode, w, h);
             }
         }
 
@@ -173,25 +173,55 @@ public class MazeCntrl : MonoBehaviour
 
     private void SetNodeType()
     {
-        for (int i = 0; i < mazePath.Length; i++)
+        MazeNode[] suffleMazeNodes = new MazeNode[width * height];
+        int shuffle = 0, n = width * height;
+
+        mazePath[0].MarkAsStartNode();
+        playerStartPos = mazePath[0].GetPosition(size);
+        mazePath[mazePath.Length - 1].MarkAsEndingNode();
+
+        for (int w = 0; w < width; w++)
         {
-            if (i == 0)
+            for (int h = 0; h < height; h++)
             {
-                mazePath[i].MarkAsStartNode();
-
-                int w = mazePath[i].Getw();
-                int h = mazePath[i].Geth();
-                playerStartPos = new Vector3(w * size, 0.0f, h * size);
-            }
-
-            if (i == (mazePath.Length-1))
-            {
-                mazePath[i].MarkAsEndingNode();
+                if (!mazeNode[w, h].isStartOrEnd())
+                {
+                    suffleMazeNodes[shuffle++] = mazeNode[w, h];
+                }
             }
         }
+
+        for (int i = 0; i < shuffle; i++)
+        {
+            int t1 = RandomNumber(shuffle);
+            int t2 = RandomNumber(shuffle);
+
+            MazeNode tempNode = suffleMazeNodes[t1];
+            suffleMazeNodes[t1] = suffleMazeNodes[t2];
+            suffleMazeNodes[t2] = tempNode;
+        }
+
+        int mark = 0;
+
+        for (int i = 0; i < gameData.nHealth; i++)
+        {
+            suffleMazeNodes[mark++].MarkAsHealth();
+        }
+
+        for (int i = 0; i < gameData.nTreasure; i++)
+        {
+            suffleMazeNodes[mark++].MarkAsTreasure();
+        }
+
+        for (int i = 0; i < gameData.nEnemies; i++)
+        {
+            suffleMazeNodes[mark++].MarkAsEnemy(); ;
+        }
+
+
+        mazePath[3].MarkAsEnemy();
     }
 
-   
 
     private void OnDrawGizmos()
     {
@@ -211,43 +241,45 @@ public class MazeCntrl : MonoBehaviour
     /**
      * RenderNode() - 
      */
-    private void RenderNode(GameObject go, int w, int h)
+    private void RenderNode(GameObject mazeNode, int w, int h)
     {
+        PlayerCntrl playerCntrl = player.GetComponent<PlayerCntrl>();
+
         if ((w == 0) && (h == 0))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.SOUTH);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetCornerNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.SOUTH);
         }
         else if ((w == (width - 1)) && (h == (height - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.NORTH);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetCornerNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.NORTH);
         }
         else if ((w == 0) && (h == (height - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.WEST);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetCornerNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.WEST);
         }
         else if ((h == 0) && (w == (width - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.EAST);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetCornerNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.EAST);
         }
         else if (w == 0)
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.WEST);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetTNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.WEST);
         }
         else if (h == 0)
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.SOUTH);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetTNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.SOUTH);
         }
         else if (w == (width - 1))
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.EAST);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetTNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.EAST);
         }
         else if (h == (height - 1))
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.NORTH);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetTNode(playerCntrl, this.mazeNode[w, h], MazeNodeDir.NORTH);
         }
         else
         {
-            go.GetComponent<MazeNodeCntrl>().SetCrossNode(player.transform, mazeNode[w, h]);
+            mazeNode.GetComponent<MazeNodeCntrl>().SetCrossNode(playerCntrl, this.mazeNode[w, h]);
         }
     }
 
@@ -279,4 +311,6 @@ public class MazeCntrl : MonoBehaviour
     {
         return (Random.Range(0, n));
     }
+
+   
 }

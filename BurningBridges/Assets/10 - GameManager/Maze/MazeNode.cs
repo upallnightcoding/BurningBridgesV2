@@ -7,7 +7,7 @@ public class MazeNode
     public MazeNode EastNode { get; set; } = null;
     public MazeNode WestNode { get; set; } = null;
 
-    public MazeNodeType Type { get; set; } = MazeNodeType.EMPTY;
+    public MazeNodeType Type { get; set; } = MazeNodeType.PATH;
 
     public MazeNodeStatus status = MazeNodeStatus.OPEN;
 
@@ -29,14 +29,14 @@ public class MazeNode
         this.h = h;
     }
 
+    public Vector3 GetPosition(float size)
+    {
+        return (new Vector3(w * size, 0.0f, h * size));
+    }
+
     public bool IsNodeOpen()
     {
         return (status == MazeNodeStatus.OPEN);
-    }
-
-    public void PrintIt(string text)
-    {
-        //Debug.Log($"{text} => w:{w},h:{h},Type:{Type.ToString()}");
     }
 
     public void MarkNodeAsClosed()
@@ -44,17 +44,27 @@ public class MazeNode
         status = MazeNodeStatus.CLOSED;
     }
 
+    public bool isStartOrEnd()
+    {
+        return ((Type == MazeNodeType.STARTING) || (Type == MazeNodeType.ENDING));
+    }
+
     public void MarkAsStartNode()   => Type = MazeNodeType.STARTING;
     public void MarkAsEndingNode()  => Type = MazeNodeType.ENDING;
     public void MarkAsPathNode()    => Type = MazeNodeType.PATH;
+    public void MarkAsEnemy()       => Type = MazeNodeType.ENEMY;
+    public void MarkAsHealth()      => Type = MazeNodeType.HEALTH;
+    public void MarkAsTreasure()    => Type = MazeNodeType.TREASURE;
 }
 
 public enum MazeNodeType
 {
-    EMPTY,
+    ENEMY,
     STARTING,
     ENDING,
-    PATH
+    PATH,
+    HEALTH,
+    TREASURE
 }
 
 public enum MazeNodeStatus

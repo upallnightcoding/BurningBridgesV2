@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerCntrl : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
     [SerializeField] private GameObject weaponPrefab;
     [SerializeField] private Transform FirePoint;
 
@@ -12,20 +13,13 @@ public class PlayerCntrl : MonoBehaviour
     private float rotationSpeed = 400.0f;
 
     private Vector2 playerMove;
-    private Vector2 prevPlayerMove;
 
     private Vector3 moveDirection;
 
-    //private int shutOffXAxis = 1;
-    //private int shutOffZAxis = 1;
-
     private NavMeshAgent navMeshAgent = null;
-
-    //private CharacterController charCntrl;
 
     void Start()
     {
-        //charCntrl = GetComponent<CharacterController>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -37,12 +31,8 @@ public class PlayerCntrl : MonoBehaviour
 
         float inputMagnitude = Mathf.Clamp01(moveDirection.magnitude);
 
-        //animator.SetFloat("Speed", inputMagnitude, 0.05f, dt);
-
         if (moveDirection != Vector3.zero)
         {
-            prevPlayerMove = playerMove;
-
             moveDirection.Normalize();
 
             Vector3 velocity = inputMagnitude * maximumSpeed * moveDirection;
@@ -70,43 +60,13 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
-    public void EnteringTurningBox()
+    public Vector3 GetPosition()
     {
-        Debug.Log("EnteringTurningBox ...");
-
-        //shutOffXAxis = 1;
-        //shutOffZAxis = 1;
+        return (transform.position);
     }
 
-    public void ExitingTurningBox()
+    public bool WithinEnemy(Vector3 position)
     {
-        Debug.Log($"ExitingTurningBox Enter ...{prevPlayerMove}");
-
-        //if (prevPlayerMove.x != 0) shutOffZAxis = 0;
-        //if (prevPlayerMove.y != 0) shutOffXAxis = 0;
-
-        /*if (prevPlayerMove.x > prevPlayerMove.y)
-        {
-            shutOffXAxis = 1;
-            shutOffZAxis = 0;
-        } else
-        {
-            shutOffXAxis = 0;
-            shutOffZAxis = 1;
-        }*/
-
-        //Debug.Log($"ExitingTurningBox Exit ...{shutOffXAxis}/{shutOffZAxis}");
-    }
-
-    private void OnEnable()
-    {
-        EventManager.Instance.OnEnteringTurningBox += EnteringTurningBox;
-        EventManager.Instance.OnExitingTurningBox += ExitingTurningBox;
-    }
-
-    private void OnDisable()
-    {
-        EventManager.Instance.OnEnteringTurningBox -= EnteringTurningBox;
-        EventManager.Instance.OnExitingTurningBox -= ExitingTurningBox;
+        return (Vector3.Distance(position, transform.position) < gameData.enemyTargetDistance);
     }
 }

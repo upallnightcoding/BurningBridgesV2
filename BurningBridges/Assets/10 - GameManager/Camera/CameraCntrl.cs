@@ -3,24 +3,36 @@ using UnityEngine;
 public class CameraCntrl : MonoBehaviour
 {
     [SerializeField] private Transform player;
-    [SerializeField] private float offset;
     [SerializeField] private float damping;
 
     private Vector3 movePosition;
     private Vector3 delta;
     private Vector3 velocity = Vector3.zero;
 
-    // Start is called before the first frame update
     void Start()
     {
-        delta.Set(0.0f, offset, 0.0f);
+        delta = Vector3.zero - transform.position;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
-        movePosition = player.position + delta;
+        movePosition = player.position - delta;
 
         transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
+    }
+
+    private void SetCamera()
+    {
+        transform.position = player.position - delta;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnPlayerPosition += SetCamera;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnPlayerPosition -= SetCamera;
     }
 }
