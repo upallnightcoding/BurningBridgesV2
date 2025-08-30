@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,11 +19,45 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject startSign;
     [SerializeField] private GameObject endCastle;
 
+    [SerializeField] private GameObject[] enemiesPrefab;
+
+    [SerializeField] private GameObject enemyAppearPrefab;
+
     private MazeNode node = null;
+
+    private Transform player = null;
+
+    private bool enemyRendered = false;
 
     void Start()
     {
 
+    }
+
+    private void Update()
+    {
+        if((!enemyRendered) && (RandomNumber(2000) == 0) && (node.Type == MazeNodeType.EMPTY))
+        {
+            StartCoroutine(RenderEnemy());
+        }
+    }
+
+    private IEnumerator RenderEnemy()
+    {
+        Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
+        enemyRendered = true;
+
+        GameObject enemyAppear = Instantiate(enemyAppearPrefab, transform);
+        enemyAppear.transform.localPosition = position;
+
+        yield return new WaitForSeconds(3.0f);
+
+        int n = enemiesPrefab.Length;
+        GameObject enemy = Instantiate(enemiesPrefab[RandomNumber(n)], transform);
+        enemy.transform.localPosition = position;
+        enemy.GetComponent<EnemyCntrl>().Set(player.position);
+
+        Destroy(enemyAppear);
     }
 
     /**
@@ -52,13 +87,17 @@ public class MazeNodeCntrl : MonoBehaviour
                 go = Instantiate(endCastle, transform);
                 go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 break;
-            case MazeNodeType.PATH:
-                break;
+          
         }
     }
 
-    public void SetCrossNode(MazeNode node)
+    /**
+     * SetCrossNode() - 
+     */
+    public void SetCrossNode(Transform player, MazeNode node)
     {
+        this.player = player;
+
         CloseAllPaths(node);
 
         roadCrossNode.SetActive(true);
@@ -66,8 +105,10 @@ public class MazeNodeCntrl : MonoBehaviour
         RenderNodeType();
     }
 
-    public void SetTNode(MazeNode node, MazeNodeDir direction)
+    public void SetTNode(Transform player, MazeNode node, MazeNodeDir direction)
     {
+        this.player = player;
+
         CloseAllPaths(node);
 
         roadTNode.SetActive(true);
@@ -90,8 +131,10 @@ public class MazeNodeCntrl : MonoBehaviour
         RenderNodeType();
     }
 
-    public void SetCornerNode(MazeNode node, MazeNodeDir direction)
+    public void SetCornerNode(Transform player, MazeNode node, MazeNodeDir direction)
     {
+        this.player = player;
+
         CloseAllPaths(node);
 
         readCornerNode.SetActive(true);
@@ -112,5 +155,13 @@ public class MazeNodeCntrl : MonoBehaviour
         }
 
         RenderNodeType();
+    }
+
+    /**
+    * RandomNumber() - Returns a random number between 0 and n - 1.
+    */
+    private int RandomNumber(int n)
+    {
+        return (Random.Range(0, n));
     }
 }

@@ -55,6 +55,10 @@ MonoBehaviour:
   readCornerNode: {fileID: 2081660530138224209}
   startSign: {fileID: 395221929553471361, guid: 2f7dacfb3df84ae468db95d1eaf0d134, type: 3}
   endCastle: {fileID: 2685066341366530602, guid: af9d2751d2e22b94f859430778a0f5c4, type: 3}
+  enemiesPrefab:
+  - {fileID: 3574698161418731745, guid: 3208fbd5037751c4ea09e9bebdad7eef, type: 3}
+  - {fileID: 6280435281406565262, guid: 049541bfa37acc246b10a37f4cfe80d2, type: 3}
+  enemyAppearPrefab: {fileID: 5089969485910108776, guid: a6388a764a8d45b4a968d1e8ce8ea59a, type: 3}
 --- !u!1 &1607332306062502194
 GameObject:
   m_ObjectHideFlags: 0

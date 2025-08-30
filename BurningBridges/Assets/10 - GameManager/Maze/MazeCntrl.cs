@@ -6,6 +6,7 @@ using System.Collections;
 public class MazeCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject mazeNodePrefab;
+    [SerializeField] private GameObject player;
 
     private float size = 30.69f;
     private int width = 5;
@@ -17,6 +18,8 @@ public class MazeCntrl : MonoBehaviour
 
     private int pathSize = 0;
     private MazeNode[] mazePath = null;
+
+    private Vector3 playerStartPos = Vector3.zero;
 
     private NavMeshSurface navMeshSurface = null;
 
@@ -35,7 +38,15 @@ public class MazeCntrl : MonoBehaviour
 
         RenderMaze();
 
+        PositionPlayer();
+
         navMeshSurface.BuildNavMesh();
+    }
+
+    private void PositionPlayer()
+    {
+        player.SetActive(true);
+        player.transform.position = playerStartPos;
     }
 
     /**
@@ -52,7 +63,6 @@ public class MazeCntrl : MonoBehaviour
             if (neighbors.Count == 0)
             {
                 mazeNodeStack.Peek().PrintIt("Pop: ");
-                //Debug.Log("===");
                 mazeNodeStack.Pop();
             }
             else
@@ -152,10 +162,10 @@ public class MazeCntrl : MonoBehaviour
         {
             for (int w = 0; w < width; w++)
             {
-                GameObject go = Instantiate(mazeNodePrefab, gameObject.transform);
-                go.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
+                GameObject mazeNose = Instantiate(mazeNodePrefab, gameObject.transform);
+                mazeNose.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
 
-                RenderNode(go, w, h);
+                RenderNode(mazeNose, w, h);
             }
         }
 
@@ -168,6 +178,10 @@ public class MazeCntrl : MonoBehaviour
             if (i == 0)
             {
                 mazePath[i].MarkAsStartNode();
+
+                int w = mazePath[i].Getw();
+                int h = mazePath[i].Geth();
+                playerStartPos = new Vector3(w * size, 0.0f, h * size);
             }
 
             if (i == (mazePath.Length-1))
@@ -201,39 +215,39 @@ public class MazeCntrl : MonoBehaviour
     {
         if ((w == 0) && (h == 0))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.SOUTH);
+            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.SOUTH);
         }
         else if ((w == (width - 1)) && (h == (height - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.NORTH);
+            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.NORTH);
         }
         else if ((w == 0) && (h == (height - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.WEST);
+            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.WEST);
         }
         else if ((h == 0) && (w == (width - 1)))
         {
-            go.GetComponent<MazeNodeCntrl>().SetCornerNode(mazeNode[w, h], MazeNodeDir.EAST);
+            go.GetComponent<MazeNodeCntrl>().SetCornerNode(player.transform, mazeNode[w, h], MazeNodeDir.EAST);
         }
         else if (w == 0)
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.WEST);
+            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.WEST);
         }
         else if (h == 0)
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.SOUTH);
+            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.SOUTH);
         }
         else if (w == (width - 1))
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.EAST);
+            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.EAST);
         }
         else if (h == (height - 1))
         {
-            go.GetComponent<MazeNodeCntrl>().SetTNode(mazeNode[w, h], MazeNodeDir.NORTH);
+            go.GetComponent<MazeNodeCntrl>().SetTNode(player.transform, mazeNode[w, h], MazeNodeDir.NORTH);
         }
         else
         {
-            go.GetComponent<MazeNodeCntrl>().SetCrossNode(mazeNode[w, h]);
+            go.GetComponent<MazeNodeCntrl>().SetCrossNode(player.transform, mazeNode[w, h]);
         }
     }
 
