@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7330957489870095008}
   - component: {fileID: 7933372205328162224}
   - component: {fileID: 7116041552885508996}
+  - component: {fileID: 4168688632856287565}
   m_Layer: 0
   m_Name: EnemyGoblinChief
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c7d59e15facf848a2c914bd876031a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathExplosionPrefab: {fileID: 6735551139218147873, guid: 6268324d281dee848a6dda31def0827b, type: 3}
 --- !u!95 &7933372205328162224
 Animator:
   serializedVersion: 7
@@ -91,6 +93,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &4168688632856287565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574698161418731745}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.0678601, z: 1}
+  m_Center: {x: 0, y: 1.1148047, z: 0}
 --- !u!1001 &2947417124706449099
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -217,9 +217,6 @@ public class MazeCntrl : MonoBehaviour
         {
             suffleMazeNodes[mark++].MarkAsEnemy(); ;
         }
-
-
-        mazePath[3].MarkAsEnemy();
     }
 
 

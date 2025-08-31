@@ -12,6 +12,11 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject eastLink;
     [SerializeField] private GameObject westLink;
 
+    [SerializeField] private GameObject northExp;
+    [SerializeField] private GameObject southExp;
+    [SerializeField] private GameObject eastExp;
+    [SerializeField] private GameObject westExp;
+
     [SerializeField] private GameObject roadCrossNode;
     [SerializeField] private GameObject roadTNode;
     [SerializeField] private GameObject readCornerNode;
@@ -22,6 +27,8 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject[] enemiesPrefab;
 
     [SerializeField] private GameObject enemyAppearPrefab;
+    [SerializeField] private GameObject healthPrefab;
+    [SerializeField] private GameObject treasurePrefab;
 
     private MazeNode node = null;
 
@@ -36,7 +43,7 @@ public class MazeNodeCntrl : MonoBehaviour
 
     private void Update()
     {
-        if((!enemyRendered) && (RandomNumber(1000) == 0) && (node.Type == MazeNodeType.ENEMY))
+        if((!enemyRendered) && (RandomNumber(2000) == 0) && (node.Type == MazeNodeType.ENEMY))
         {
             StartCoroutine(RenderEnemy());
         }
@@ -67,12 +74,15 @@ public class MazeNodeCntrl : MonoBehaviour
     {
         this.node = node;
 
-        if (node.NorthNode == null) northLink.SetActive(false);
-        if (node.SouthNode == null) southLink.SetActive(false);
-        if (node.EastNode == null) eastLink.SetActive(false);
-        if (node.WestNode == null) westLink.SetActive(false);
+        //if (node.NorthNode == null) northLink.SetActive(false);
+        //if (node.SouthNode == null) southLink.SetActive(false);
+        //if (node.EastNode == null) eastLink.SetActive(false);
+        //if (node.WestNode == null) westLink.SetActive(false);
     }
 
+    /**
+     * RenderNodeType() - 
+     */
     private void RenderNodeType()
     {
         GameObject go = null;
@@ -87,7 +97,11 @@ public class MazeNodeCntrl : MonoBehaviour
                 go = Instantiate(endCastle, transform);
                 go.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                 break;
-          
+            case MazeNodeType.HEALTH:
+                go = Instantiate(healthPrefab, transform);
+                go.transform.localPosition = new Vector3(0.0f, 1.2f, 0.0f);
+                go.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+                break;
         }
     }
 
@@ -116,15 +130,19 @@ public class MazeNodeCntrl : MonoBehaviour
         switch(direction)
         {
             case MazeNodeDir.NORTH:
+                northLink.SetActive(false);
                 break;
             case MazeNodeDir.SOUTH:
                 roadTNode.transform.Rotate(0.0f, 180.0f, 0.0f);
+                southLink.SetActive(false);
                 break;
             case MazeNodeDir.EAST:
                 roadTNode.transform.Rotate(0.0f, 90.0f, 0.0f);
+                eastLink.SetActive(false);
                 break;
             case MazeNodeDir.WEST:
                 roadTNode.transform.Rotate(0.0f, -90.0f, 0.0f);
+                westLink.SetActive(false);
                 break;
         }
 
@@ -142,15 +160,23 @@ public class MazeNodeCntrl : MonoBehaviour
         switch (direction)
         {
             case MazeNodeDir.NORTH:
+                northLink.SetActive(false);
+                eastLink.SetActive(false);
                 break;
             case MazeNodeDir.SOUTH:
                 readCornerNode.transform.Rotate(0.0f, 180.0f, 0.0f);
+                southLink.SetActive(false);
+                westLink.SetActive(false);
                 break;
             case MazeNodeDir.EAST:
                 readCornerNode.transform.Rotate(0.0f, 90.0f, 0.0f);
+                southLink.SetActive(false);
+                eastLink.SetActive(false);
                 break;
             case MazeNodeDir.WEST:
                 readCornerNode.transform.Rotate(0.0f, -90.0f, 0.0f);
+                northLink.SetActive(false);
+                westLink.SetActive(false);
                 break;
         }
 

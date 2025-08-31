@@ -29,6 +29,11 @@ public class MazeNode
         this.h = h;
     }
 
+    public void PrintIt(string text)
+    {
+        Debug.Log($"{text}: {w},{h}");
+    }
+
     public Vector3 GetPosition(float size)
     {
         return (new Vector3(w * size, 0.0f, h * size));

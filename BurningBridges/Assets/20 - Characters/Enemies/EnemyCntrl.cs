@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class EnemyCntrl : MonoBehaviour
 {
+    [SerializeField] private GameObject deathExplosionPrefab;
+
     private readonly float TARGET_INTERVAL = 2.0f;
 
     private NavMeshAgent navMeshAgent = null;
@@ -15,6 +17,8 @@ public class EnemyCntrl : MonoBehaviour
 
     private float targetInterval;
 
+    private int health = 3;
+
     private void Awake()
     {
         targetInterval = TARGET_INTERVAL;
@@ -24,6 +28,8 @@ public class EnemyCntrl : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        EventManager.Instance.InvokeOnUpdateEnemyCount(1);
     }
 
     private void Update()
@@ -37,6 +43,19 @@ public class EnemyCntrl : MonoBehaviour
                 currentState = State_Targeting();
                 break;
         }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (--health == 0)
+        {
+            GameObject explosion = Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
+            EventManager.Instance.InvokeOnUpdateEnemyCount(-1);
+            Destroy(gameObject);
+            Destroy(explosion);
+        }
+
+        Debug.Log($"Health: {health}");
     }
 
     /**
@@ -89,6 +108,16 @@ public class EnemyCntrl : MonoBehaviour
     public void Set(PlayerCntrl playerCntrl)
     {
         this.playerCntrl = playerCntrl;
+    }
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
     }
 }
 

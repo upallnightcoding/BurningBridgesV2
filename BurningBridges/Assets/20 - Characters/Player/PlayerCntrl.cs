@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class PlayerCntrl : MonoBehaviour
 {
     [SerializeField] private GameData gameData;
-    [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private GameObject lobWeaponPrefab;
+    [SerializeField] private GameObject straightWeaponPrefab;
     [SerializeField] private Transform FirePoint;
 
     private float maximumSpeed = 10.0f;
@@ -54,8 +55,20 @@ public class PlayerCntrl : MonoBehaviour
     {
         if (context.performed)
         {
-            GameObject go = Instantiate(weaponPrefab);
-            go.transform.localRotation = Quaternion.Euler(-45.0f, 0.0f, 0.0f);
+            GameObject go = Instantiate(lobWeaponPrefab);
+            Vector3 angles = transform.rotation.eulerAngles;
+            go.transform.localRotation = Quaternion.Euler(-45.0f, angles.y, 0.0f);
+            go.transform.position = FirePoint.position;
+        }
+    }
+
+    public void OnFire1(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            GameObject go = Instantiate(straightWeaponPrefab);
+            Vector3 angles = transform.rotation.eulerAngles;
+            go.transform.localRotation = Quaternion.Euler(0.0f, angles.y, 0.0f);
             go.transform.position = FirePoint.position;
         }
     }
