@@ -9,6 +9,9 @@ public class EventManager
     public event Action<int> OnUpdateEnemyCount = delegate { };
     public void InvokeOnUpdateEnemyCount(int count) => OnUpdateEnemyCount.Invoke(count);
 
+    public event Action<BridgeCntrl> OnResetPlayer = delegate { };
+    public void InvokeOnResetPlayer(BridgeCntrl bridgeCntrl) => OnResetPlayer.Invoke(bridgeCntrl);
+
     public static EventManager Instance
     {
         get

@@ -46,6 +46,17 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
+    public void StopPlayerFromMoving()
+    {
+        navMeshAgent.isStopped = true;
+        navMeshAgent.ResetPath();
+    }
+
+    public void StartPlayerFromMoving()
+    {
+        navMeshAgent.isStopped = false;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         playerMove = context.ReadValue<Vector2>();
@@ -78,8 +89,8 @@ public class PlayerCntrl : MonoBehaviour
         return (transform.position);
     }
 
-    public bool WithinEnemy(Vector3 position)
+    public bool WithinEnemy(Vector3 enemyPosition)
     {
-        return (Vector3.Distance(position, transform.position) < gameData.enemyTargetDistance);
+        return (Vector3.Distance(enemyPosition, transform.position) < gameData.enemyTargetDistance);
     }
 }

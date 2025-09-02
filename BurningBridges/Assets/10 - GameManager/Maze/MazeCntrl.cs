@@ -52,6 +52,20 @@ public class MazeCntrl : MonoBehaviour
         EventManager.Instance.InvokeOnPlayerPosition();
     }
 
+    public void ResetPlayer(BridgeCntrl bridgeCntrl)
+    {
+        bridgeCntrl.DestroyBridge();
+
+        StartCoroutine(BuildNavMesh());
+    }
+
+    private IEnumerator BuildNavMesh()
+    {
+        yield return new WaitForEndOfFrame();
+        navMeshSurface.RemoveData();
+        navMeshSurface.BuildNavMesh();
+    }
+
     /**
      * CreateMaze() - 
      */
@@ -309,5 +323,15 @@ public class MazeCntrl : MonoBehaviour
         return (Random.Range(0, n));
     }
 
-   
+    private void OnEnable()
+    {
+        EventManager.Instance.OnResetPlayer += ResetPlayer;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.OnResetPlayer -= ResetPlayer;
+    }
+
+
 }

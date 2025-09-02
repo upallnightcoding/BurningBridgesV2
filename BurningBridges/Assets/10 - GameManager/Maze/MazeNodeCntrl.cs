@@ -74,10 +74,10 @@ public class MazeNodeCntrl : MonoBehaviour
     {
         this.node = node;
 
-        //if (node.NorthNode == null) northLink.SetActive(false);
-        //if (node.SouthNode == null) southLink.SetActive(false);
-        //if (node.EastNode == null) eastLink.SetActive(false);
-        //if (node.WestNode == null) westLink.SetActive(false);
+        if (node.NorthNode == null) northLink.GetComponent<BridgeCntrl>().SetTrigger();
+        if (node.SouthNode == null) southLink.GetComponent<BridgeCntrl>().SetTrigger();
+        if (node.EastNode == null) eastLink.GetComponent<BridgeCntrl>().SetTrigger();
+        if (node.WestNode == null) westLink.GetComponent<BridgeCntrl>().SetTrigger();
     }
 
     /**
