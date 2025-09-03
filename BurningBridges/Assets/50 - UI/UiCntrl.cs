@@ -18,7 +18,7 @@ public class UiCntrl : MonoBehaviour
     {
         enemyCount += count;
 
-        enemyCountText.text = enemyCount.ToString() + "/" + gameData.nEnemies;
+        enemyCountText.text = enemyCount.ToString();
     }
 
     private void OnDisable()
