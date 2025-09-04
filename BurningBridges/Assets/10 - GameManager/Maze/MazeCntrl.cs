@@ -31,6 +31,11 @@ public class MazeCntrl : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    public void StartNewGame()
+    {
         InitializeMaze();
 
         CreateMaze();
