@@ -33,7 +33,8 @@ public class BridgeCntrl : MonoBehaviour
      */
     public void DestroyBridge()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        Destroy(explosion, 4.0f);
         Destroy(gameObject);
     }
 

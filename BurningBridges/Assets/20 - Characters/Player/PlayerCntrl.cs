@@ -10,8 +10,10 @@ public class PlayerCntrl : MonoBehaviour
     [SerializeField] private GameObject straightWeaponPrefab;
     [SerializeField] private Transform FirePoint;
 
-    private float maximumSpeed = 10.0f;
-    private float rotationSpeed = 400.0f;
+    private Animator animator;
+
+    private float playerSpeed = 8.0f;
+    private float playerRotation = 400.0f;
 
     private Vector2 playerMove;
 
@@ -22,6 +24,9 @@ public class PlayerCntrl : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
+        animator.SetBool("run", true);
     }
 
     void Update()
@@ -34,15 +39,20 @@ public class PlayerCntrl : MonoBehaviour
 
         if (moveDirection != Vector3.zero)
         {
+            animator.SetBool("run", true);
+
             moveDirection.Normalize();
 
-            Vector3 velocity = inputMagnitude * maximumSpeed * moveDirection;
+            Vector3 velocity = inputMagnitude * playerSpeed * moveDirection;
 
             navMeshAgent.Move(velocity * Time.deltaTime);
 
             Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotation * Time.deltaTime);
+        } else
+        {
+            animator.SetBool("run", false);
         }
     }
 
@@ -70,6 +80,7 @@ public class PlayerCntrl : MonoBehaviour
             Vector3 angles = transform.rotation.eulerAngles;
             go.transform.localRotation = Quaternion.Euler(-45.0f, angles.y, 0.0f);
             go.transform.position = FirePoint.position;
+            Destroy(go, 4.0f);
         }
     }
 
@@ -81,6 +92,7 @@ public class PlayerCntrl : MonoBehaviour
             Vector3 angles = transform.rotation.eulerAngles;
             go.transform.localRotation = Quaternion.Euler(0.0f, angles.y, 0.0f);
             go.transform.position = FirePoint.position;
+            Destroy(go, 4.0f);
         }
     }
 

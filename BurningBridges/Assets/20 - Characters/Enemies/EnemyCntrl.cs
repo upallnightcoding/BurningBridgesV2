@@ -45,18 +45,7 @@ public class EnemyCntrl : MonoBehaviour
         }
     }
 
-    private void OnParticleCollision(GameObject other)
-    {
-        if (--health == 0)
-        {
-            GameObject explosion = Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
-            EventManager.Instance.InvokeOnUpdateEnemyCount(-1);
-            Destroy(gameObject);
-            Destroy(explosion);
-        }
-
-        Debug.Log($"Health: {health}");
-    }
+   
 
     /**
      * State_Idle() - 
@@ -85,11 +74,13 @@ public class EnemyCntrl : MonoBehaviour
 
         if (targetInterval < 0.0f)
         {
-            navMeshAgent.SetDestination(playerCntrl.GetPosition());
+            //navMeshAgent.SetDestination(playerCntrl.GetPosition());
+            FollowHero();
             targetInterval = TARGET_INTERVAL;
         } else
         {
             targetInterval -= Time.deltaTime;
+            TurnToNextSteeringPoint();
         }
 
         if (!playerCntrl.WithinEnemy(transform.position))
@@ -102,12 +93,53 @@ public class EnemyCntrl : MonoBehaviour
         return (state);
     }
 
+    public void FollowHero()
+    {
+        navMeshAgent.SetDestination(playerCntrl.GetPosition());
+        Debug.Log("Set Destination ...");
+
+        if (AgentHasPath())
+        {
+            Debug.Log("Turning Point ...");
+            TurnToPoint(navMeshAgent.steeringTarget);
+        }
+
+    }
+
+    public void TurnToNextSteeringPoint()
+    {
+        TurnToPoint(navMeshAgent.steeringTarget);
+    }
+
+    public void TurnToPoint(Vector3 target)
+    {
+        Vector3 direction = target - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+    }
+
+    public bool AgentHasPath()
+    {
+        return ((navMeshAgent) && (navMeshAgent.hasPath));
+    }
+
     /**
      * Set() - Determines the destination position of the enemy.
      */
     public void Set(PlayerCntrl playerCntrl)
     {
         this.playerCntrl = playerCntrl;
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        if (--health == 0)
+        {
+            GameObject explosion = Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
+            EventManager.Instance.InvokeOnUpdateEnemyCount(-1);
+            Destroy(gameObject);
+            Destroy(explosion, 4.0f);
+        }
     }
 
     private void OnEnable()

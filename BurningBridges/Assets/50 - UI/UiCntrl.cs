@@ -13,6 +13,8 @@ public class UiCntrl : MonoBehaviour
 
     [SerializeField] private TMP_Text gameLevelText;
 
+    [SerializeField] private Slider healthSlider;
+
     private int enemyCount = 0;
 
     void Start()
@@ -39,6 +41,13 @@ public class UiCntrl : MonoBehaviour
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(false);
         gamePlayPanel.SetActive(true);
+    }
+
+    public void SetHealth(float value)
+    {
+        float slide = value / 100.0f;
+
+        healthSlider.value = slide;
     }
 
     public void OnSliderValueChanged(float value)
