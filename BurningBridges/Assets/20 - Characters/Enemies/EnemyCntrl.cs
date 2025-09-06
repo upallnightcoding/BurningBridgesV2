@@ -74,7 +74,6 @@ public class EnemyCntrl : MonoBehaviour
 
         if (targetInterval < 0.0f)
         {
-            //navMeshAgent.SetDestination(playerCntrl.GetPosition());
             FollowHero();
             targetInterval = TARGET_INTERVAL;
         } else
@@ -96,11 +95,9 @@ public class EnemyCntrl : MonoBehaviour
     public void FollowHero()
     {
         navMeshAgent.SetDestination(playerCntrl.GetPosition());
-        Debug.Log("Set Destination ...");
 
         if (AgentHasPath())
         {
-            Debug.Log("Turning Point ...");
             TurnToPoint(navMeshAgent.steeringTarget);
         }
 
