@@ -8,6 +8,7 @@ TagManager:
   - CinemachineTarget
   - ScreenCamera
   - cockpit_capitalLaser
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Cockpit_BG
   - Cockpit_DepthClear
   - 
-  - 
+  - Water
   - 
   - 
   - 

@@ -34,7 +34,7 @@ public class MazeCntrl : MonoBehaviour
         
     }
 
-    public void StartNewGame()
+    public void StartNewGame(Transform parent)
     {
         InitializeMaze();
 
@@ -42,11 +42,15 @@ public class MazeCntrl : MonoBehaviour
 
         SetNodeType();
 
-        RenderMaze();
+        Debug.Log("Start Rendering Maze ...");
+
+        RenderMaze(parent);
 
         PositionPlayer();
 
         navMeshSurface.BuildNavMesh();
+
+        Debug.Log("End Rendering Maze ...");
     }
 
     private void PositionPlayer()
@@ -175,13 +179,13 @@ public class MazeCntrl : MonoBehaviour
         return (node);
     }
 
-    private void RenderMaze()
+    private void RenderMaze(Transform parent)
     {
         for (int h = 0; h < height; h++)
         {
             for (int w = 0; w < width; w++)
             {
-                GameObject mazeNode = Instantiate(mazeNodePrefab, gameObject.transform);
+                GameObject mazeNode = Instantiate(mazeNodePrefab, parent);
                 mazeNode.transform.SetLocalPositionAndRotation(new Vector3(w * size, 0.0f, h * size), Quaternion.identity);
 
                 RenderNode(mazeNode, w, h);
