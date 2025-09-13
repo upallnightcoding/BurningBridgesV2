@@ -34,6 +34,9 @@ public class MazeCntrl : MonoBehaviour
         
     }
 
+    public int GetWidth() => width;
+    public int GetHeight() => height;
+
     public void StartNewGame(Transform parent)
     {
         InitializeMaze();
