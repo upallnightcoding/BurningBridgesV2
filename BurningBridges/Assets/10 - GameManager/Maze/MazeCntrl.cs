@@ -241,7 +241,7 @@ public class MazeCntrl : MonoBehaviour
 
         for (int i = 0; i < gameData.nEnemies; i++)
         {
-            suffleMazeNodes[mark++].MarkAsEnemy(); ;
+            suffleMazeNodes[mark++].MarkAsEnemy(); 
         }
     }
 
