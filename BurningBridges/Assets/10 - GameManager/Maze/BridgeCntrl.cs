@@ -46,12 +46,27 @@ public class BridgeCntrl : MonoBehaviour
      */
     private void OnTriggerEnter(Collider other)
     {
-        if (trigger)
+        if (other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
         {
-            if(other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
+            if (trigger)
+            {
+                EventManager.Instance.InvokeOnResetPlayer(this);
+            } else
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(other.transform.position, 3.0f);
+                Debug.Log($"Hit Colliders ... {hitColliders.Length}");
+            }
+        }
+
+        /*if (trigger)
+        {
+            if (other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
             {
                 EventManager.Instance.InvokeOnResetPlayer(this);
             }
-        }
+        } else
+        {
+
+        }*/
     }
 }

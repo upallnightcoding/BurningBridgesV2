@@ -29,6 +29,14 @@ public class Embellish
         return (this);
     }
 
+    public Embellish Prefab(GameObject prefab)
+    {
+        this.prefabList = new GameObject[] { prefab };
+        this.nPrefabList = 1;
+
+        return (this);
+    }
+
     public Embellish Parent(Transform parent)
     {
         this.parent = parent;
