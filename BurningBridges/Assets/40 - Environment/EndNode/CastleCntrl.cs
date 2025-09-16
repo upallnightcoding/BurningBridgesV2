@@ -4,14 +4,7 @@ public class CastleCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject fireworksPrefab;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         
     }
@@ -22,7 +15,7 @@ public class CastleCntrl : MonoBehaviour
         {
             GameObject fireworks = Instantiate(fireworksPrefab, transform.position, Quaternion.identity);
             fireworks.SetActive(true);
-            Destroy(fireworks, 5.0f);
+            Destroy(fireworks, 15.0f);
         }
     }
 

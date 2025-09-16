@@ -25,6 +25,8 @@ public class Embellish
     {
         this.prefabList = prefabList;
         this.nPrefabList = prefabList.Length;
+        this.xyzRotate = null;
+        this.xyzScale = null;
 
         return (this);
     }

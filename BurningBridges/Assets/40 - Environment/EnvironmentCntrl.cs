@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnvironmentCntrl : MonoBehaviour
 {
-
     [SerializeField] private GameObject[] waterPrefabs = null;
     [SerializeField] private GameObject[] clusterPrefabs = null;
     [SerializeField] private GameObject skullPrefab = null;
@@ -21,7 +20,7 @@ public class EnvironmentCntrl : MonoBehaviour
           Parent(transform).
           Volumn(0.0f, 122.0f, 0.0f, 122.0f).
           Rotate(0.0f, 0.0f, 0.0f, 360.0f, 0.0f, 0.0f).
-          Render(50);
+          Render(300);
 
         decorate.
             PrefabList(waterPrefabs).

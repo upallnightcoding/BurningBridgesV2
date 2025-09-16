@@ -53,20 +53,14 @@ public class BridgeCntrl : MonoBehaviour
                 EventManager.Instance.InvokeOnResetPlayer(this);
             } else
             {
-                Collider[] hitColliders = Physics.OverlapSphere(other.transform.position, 3.0f);
-                Debug.Log($"Hit Colliders ... {hitColliders.Length}");
+                int layerMask = LayerMask.GetMask("Skull");
+                Collider[] hitColliders = Physics.OverlapSphere(other.transform.position, 10.0f, layerMask);
+
+                foreach (Collider collider in hitColliders)
+                {
+                    collider.gameObject.GetComponent<DungeonSkullCntrl>().FireSkull(playerCntrl.GetPosition());
+                }
             }
         }
-
-        /*if (trigger)
-        {
-            if (other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
-            {
-                EventManager.Instance.InvokeOnResetPlayer(this);
-            }
-        } else
-        {
-
-        }*/
     }
 }
