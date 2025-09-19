@@ -12,11 +12,6 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject eastLink;
     [SerializeField] private GameObject westLink;
 
-    [SerializeField] private GameObject northExp;
-    [SerializeField] private GameObject southExp;
-    [SerializeField] private GameObject eastExp;
-    [SerializeField] private GameObject westExp;
-
     [SerializeField] private GameObject roadCrossNode;
     [SerializeField] private GameObject roadTNode;
     [SerializeField] private GameObject readCornerNode;
@@ -29,6 +24,7 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject enemyAppearPrefab;
     [SerializeField] private GameObject healthPrefab;
     [SerializeField] private GameObject treasurePrefab;
+    [SerializeField] private GameObject arrowPrefab;
 
     private MazeNode node = null;
 

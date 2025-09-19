@@ -111,8 +111,12 @@ public class EnemyCntrl : MonoBehaviour
     public void TurnToPoint(Vector3 target)
     {
         Vector3 direction = target - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5.0f);
+        }
     }
 
     public bool AgentHasPath()
@@ -137,16 +141,6 @@ public class EnemyCntrl : MonoBehaviour
             Destroy(gameObject);
             Destroy(explosion, 4.0f);
         }
-    }
-
-    private void OnEnable()
-    {
-        
-    }
-
-    private void OnDisable()
-    {
-        
     }
 }
 

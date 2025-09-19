@@ -52,6 +52,12 @@ public class MazeCntrl : MonoBehaviour
         navMeshSurface.BuildNavMesh();
     }
 
+    private void ChangeGameLevel(int level)
+    {
+        width = level;
+        height = level;
+    }
+
     private void PositionPlayer()
     {
         player.SetActive(true);
@@ -197,6 +203,9 @@ public class MazeCntrl : MonoBehaviour
 
     }
 
+    /**
+     * SetNodeType() - 
+     */
     private void SetNodeType()
     {
         MazeNode[] suffleMazeNodes = new MazeNode[width * height];
@@ -229,22 +238,18 @@ public class MazeCntrl : MonoBehaviour
 
         int mark = 0;
 
-        for (int i = 0; i < gameData.nHealth; i++)
+        int nHealth = (int) (n * gameData.healthPercent / 100.0f);
+        for (int i = 0; i < nHealth; i++)
         {
             suffleMazeNodes[mark++].MarkAsHealth();
         }
 
-        for (int i = 0; i < gameData.nTreasure; i++)
-        {
-            suffleMazeNodes[mark++].MarkAsTreasure();
-        }
-
-        for (int i = 0; i < gameData.nEnemies; i++)
+        int nEnemies = (int)(n * gameData.enemiesPercent / 100.0f);
+        for (int i = 0; i < nEnemies; i++)
         {
             suffleMazeNodes[mark++].MarkAsEnemy(); 
         }
     }
-
 
     private void OnDrawGizmos()
     {
@@ -338,11 +343,13 @@ public class MazeCntrl : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnResetPlayer += ResetPlayer;
+        EventManager.Instance.OnLevelChange += ChangeGameLevel;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnResetPlayer -= ResetPlayer;
+        EventManager.Instance.OnLevelChange -= ChangeGameLevel;
     }
 
 

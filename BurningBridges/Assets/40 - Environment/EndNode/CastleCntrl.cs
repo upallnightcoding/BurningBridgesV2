@@ -23,11 +23,9 @@ public class CastleCntrl : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            Debug.Log("Fireworks Called ...");
             SetOffFireworks();
-        } else
-        {
-            Debug.Log("Fireworks NOT Called ...");
-        }
+
+            EventManager.Instance.InvokeOnPlayerWin();
+        } 
     }
 }

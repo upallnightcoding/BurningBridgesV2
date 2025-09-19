@@ -12,6 +12,8 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject gamePlayPanel;
+    [SerializeField] private GameObject youWinPanel;
+    [SerializeField] private GameObject youLosePanel;
 
     [SerializeField] private TMP_Text gameLevelText;
     [SerializeField] private TMP_Text enemyCountText;
@@ -31,6 +33,11 @@ public class UiCntrl : MonoBehaviour
 
     private int enemyCount = 0;
 
+    private int playerHealth = 100;
+
+    public void RenderYouLoseBanner(bool onOff) => youLosePanel.SetActive(onOff);
+    public void RenderYouWinBanner(bool onOff) => youWinPanel.SetActive(onOff);
+
     void Start()
     {
         RenderMainMenuPanel();
@@ -38,58 +45,84 @@ public class UiCntrl : MonoBehaviour
 
     public void RenderMainMenuPanel()
     {
+        UnRenderPanels();
+
         mainMenuPanel.SetActive(true);
-        settingsPanel.SetActive(false);
-        gamePlayPanel.SetActive(false);
 
         gameTimeSwitch = false;
     }
 
     public void RenderSettingsPanel()
     {
-        mainMenuPanel.SetActive(false);
+        UnRenderPanels();
+
         settingsPanel.SetActive(true);
-        gamePlayPanel.SetActive(false);
 
         gameTimeSwitch = false;
     }
 
     public void RenderGamePlayPanel()
     {
-        mainMenuPanel.SetActive(false);
-        settingsPanel.SetActive(false);
-        gamePlayPanel.SetActive(true);
+        UnRenderPanels();
 
-        UpdateMiniMap();
+        playerHealth = 100;
+
+        gamePlayPanel.SetActive(true);
 
         StartCoroutine(UpdateTiming());
     }
 
-    public void UpdateMiniMap()
+    private void UnRenderPanels()
     {
-        float size = 5.0f;
+        mainMenuPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+        gamePlayPanel.SetActive(false);
+        youWinPanel.SetActive(false);
+        youLosePanel.SetActive(false);
+    }
 
-        GameObject go = Instantiate(enemyPrefab);
-        go.transform.SetParent(miniMapContainer, false);
+    public void RenderPlayerWins()
+    {
+        StartCoroutine(RenderPlayerWinBanner());
+    }
 
-        for (int w = 0; w < mazeCntrl.GetWidth(); w++)
+    private IEnumerator RenderPlayerWinBanner()
+    {
+        RenderYouWinBanner(true);
+
+        yield return new WaitForSeconds(3.0f);
+
+        RenderYouWinBanner(false);
+        RenderMainMenuPanel();
+    }
+
+    public void UpdatePlayerHealth(int value)
+    {
+        playerHealth -= value;
+
+        healthSlider.value = playerHealth / 100.0f; 
+
+        if (playerHealth <= 0)
         {
-            for (int h = 0; h < mazeCntrl.GetHeight(); h++)
-            {
-            }
+            StartCoroutine(RenderPlayerLoseBanner());
         }
     }
 
-    public void SetHealth(float value)
+    private IEnumerator RenderPlayerLoseBanner()
     {
-        float slide = value / 100.0f;
+        RenderYouLoseBanner(true);
 
-        healthSlider.value = slide;
+        yield return new WaitForSeconds(3.0f);
+
+        RenderYouLoseBanner(false);
+        RenderMainMenuPanel();
     }
 
     public void OnSliderValueChanged(float value)
     {
         gameLevelText.text = "Game Level: " + ((int)value).ToString();
+
+        EventManager.Instance.InvokeOnLevelChange((int)value);
     }
 
     /**
@@ -128,10 +161,12 @@ public class UiCntrl : MonoBehaviour
     private void OnDisable()
     {
         EventManager.Instance.OnUpdateEnemyCount -= UpdateEnemyCount;
+        EventManager.Instance.OnPlayerHit -= UpdatePlayerHealth;
     }
 
     private void OnEnable()
     {
         EventManager.Instance.OnUpdateEnemyCount += UpdateEnemyCount;
+        EventManager.Instance.OnPlayerHit += UpdatePlayerHealth;
     }
 }

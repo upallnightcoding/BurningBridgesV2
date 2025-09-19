@@ -5,10 +5,13 @@ using UnityEngine.AI;
 
 public class PlayerCntrl : MonoBehaviour
 {
+    // Inspector Serialize Field
+    //--------------------------
     [SerializeField] private GameData gameData;
     [SerializeField] private GameObject lobWeaponPrefab;
     [SerializeField] private GameObject straightWeaponPrefab;
     [SerializeField] private Transform firePoint;
+   
 
     private LayerMask enemyLayerMask;
 
@@ -150,18 +153,6 @@ public class PlayerCntrl : MonoBehaviour
         }
     }
 
-    private Vector3 EulerToDirection(Vector3 euler)
-    {
-        float pitch = euler.x * Mathf.Deg2Rad;
-        float yaw   = euler.y * Mathf.Deg2Rad;
-
-        float x = Mathf.Cos(pitch) * Mathf.Cos(yaw);
-        float y = Mathf.Sin(pitch);
-        float z = Mathf.Cos(pitch) * Mathf.Sin(yaw);
-
-        return (new Vector3(x, y, z).normalized);
-    }
-
     public Vector3 GetPosition()
     {
         return (transform.position);
@@ -174,6 +165,6 @@ public class PlayerCntrl : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("On Particle Collision ...");
+        EventManager.Instance.InvokeOnPlayerHit(gameData.playerHitPoints);
     }
 }

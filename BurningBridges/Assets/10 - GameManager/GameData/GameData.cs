@@ -3,11 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameData", menuName = "Bridge Burning/GameData")]
 public class GameData : ScriptableObject
 {
+    // Distance from player to enemy
     public float enemyTargetDistance = 30.0f;
 
-    public int nHealth = 3;
+    // Island Percentage values
+    //-------------------------
+    public float healthPercent = 20.0f;
+    public float enemiesPercent = 60.0f;
 
-    public int nTreasure = 3;
-
-    public int nEnemies = 7;
+    // Number points when player is hit by skulls
+    public int playerHitPoints = 2;
 }
