@@ -13,4 +13,10 @@ public class GameData : ScriptableObject
 
     // Number points when player is hit by skulls
     public int playerHitPoints = 2;
+
+    // Distance betwween islands
+    public float islandDistance = 30.69f;
+
+    // Game startup default level
+    public int defaultGameLevel = 5;
 }

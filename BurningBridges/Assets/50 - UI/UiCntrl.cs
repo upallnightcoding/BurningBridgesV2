@@ -81,6 +81,9 @@ public class UiCntrl : MonoBehaviour
         youLosePanel.SetActive(false);
     }
 
+    /**
+     * RenderPlayerWins() - 
+     */
     public void RenderPlayerWins()
     {
         StartCoroutine(RenderPlayerWinBanner());
@@ -162,11 +165,13 @@ public class UiCntrl : MonoBehaviour
     {
         EventManager.Instance.OnUpdateEnemyCount -= UpdateEnemyCount;
         EventManager.Instance.OnPlayerHit -= UpdatePlayerHealth;
+        EventManager.Instance.OnPlayerWin -= RenderPlayerWins;
     }
 
     private void OnEnable()
     {
         EventManager.Instance.OnUpdateEnemyCount += UpdateEnemyCount;
         EventManager.Instance.OnPlayerHit += UpdatePlayerHealth;
+        EventManager.Instance.OnPlayerWin += RenderPlayerWins;
     }
 }

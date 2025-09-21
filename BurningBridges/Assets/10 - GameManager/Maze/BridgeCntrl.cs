@@ -1,15 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BridgeCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject explosionPrefab;
 
-    private bool trigger = false;
+    private NavMeshObstacle navMeshObstacle;
+
+    private bool bridgeTrigger = false;
 
     void Start()
     {
-        
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
     void Update()
@@ -23,7 +26,7 @@ public class BridgeCntrl : MonoBehaviour
      */
     public void SetTrigger()
     {
-        trigger = true;
+        bridgeTrigger = true;
     }
 
     /**
@@ -33,9 +36,11 @@ public class BridgeCntrl : MonoBehaviour
      */
     public void DestroyBridge()
     {
+        navMeshObstacle.carving = false;
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(explosion, 4.0f);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     /**
@@ -48,7 +53,9 @@ public class BridgeCntrl : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
         {
-            if (trigger)
+            Debug.Log($"Bridge Trigger: {bridgeTrigger}");
+
+            if (bridgeTrigger)
             {
                 EventManager.Instance.InvokeOnResetPlayer(this);
             } else

@@ -9,7 +9,7 @@ public class MazeCntrl : MonoBehaviour
     [SerializeField] private GameObject mazeNodePrefab;
     [SerializeField] private GameObject player;
 
-    private float size = 30.69f;
+    private float islandDistance = 0.0f;
     private int width = 5;
     private int height = 5;
 
@@ -70,7 +70,7 @@ public class MazeCntrl : MonoBehaviour
     {
         bridgeCntrl.DestroyBridge();
 
-        StartCoroutine(BuildNavMesh());
+        //StartCoroutine(BuildNavMesh());
     }
 
     private IEnumerator BuildNavMesh()
@@ -78,6 +78,8 @@ public class MazeCntrl : MonoBehaviour
         yield return new WaitForEndOfFrame();
         navMeshSurface.RemoveData();
         navMeshSurface.BuildNavMesh();
+
+        yield return new WaitForEndOfFrame();
     }
 
     /**
@@ -138,6 +140,8 @@ public class MazeCntrl : MonoBehaviour
     {
         mazeNode = new MazeNode[width, height];
 
+        islandDistance = gameData.islandDistance;
+
         for (int w = 0; w < width; w++)
         {
             for (int h = 0; h < height; h++)
@@ -194,7 +198,7 @@ public class MazeCntrl : MonoBehaviour
             for (int w = 0; w < width; w++)
             {
                 GameObject mazeNode = Instantiate(mazeNodePrefab, parent);
-                Vector3 position = new Vector3(w * size, 0.0f, h * size);
+                Vector3 position = new Vector3(w * islandDistance, 0.0f, h * islandDistance);
                 mazeNode.transform.SetLocalPositionAndRotation(position, Quaternion.identity);
 
                 RenderNode(mazeNode, w, h);
@@ -212,7 +216,7 @@ public class MazeCntrl : MonoBehaviour
         int shuffle = 0, n = width * height;
 
         mazePath[0].MarkAsStartNode();
-        playerStartPos = mazePath[0].GetPosition(size);
+        playerStartPos = mazePath[0].GetPosition(islandDistance);
         mazePath[mazePath.Length - 1].MarkAsEndingNode();
 
         for (int w = 0; w < width; w++)
@@ -259,8 +263,8 @@ public class MazeCntrl : MonoBehaviour
 
             for (int i = 1; i < pathSize; i++)
             {
-                Vector3 posStart = new(mazePath[i - 1].Getw() * size, 0.0f, mazePath[i - 1].Geth() * size);
-                Vector3 posEnd = new(mazePath[i].Getw() * size, 0.0f, mazePath[i].Geth() * size);
+                Vector3 posStart = new(mazePath[i - 1].Getw() * islandDistance, 0.0f, mazePath[i - 1].Geth() * islandDistance);
+                Vector3 posEnd = new(mazePath[i].Getw() * islandDistance, 0.0f, mazePath[i].Geth() * islandDistance);
                 Gizmos.DrawLine(posStart, posEnd);
             }
         }
