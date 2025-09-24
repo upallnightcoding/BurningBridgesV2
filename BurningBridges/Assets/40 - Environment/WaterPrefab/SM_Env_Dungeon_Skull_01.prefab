@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1360571714783208058}
-  fireballPrefab: {fileID: 5099633350062202905, guid: 9c2c3b85ab22e644e8c8c8c1ff6eb29d, type: 3}
+  fireballPrefab: {fileID: 5099633350062202905, guid: 53ecc2e38790be94da76a83b68b0d47c, type: 3}
 --- !u!65 &6601445289700169252
 BoxCollider:
   m_ObjectHideFlags: 0

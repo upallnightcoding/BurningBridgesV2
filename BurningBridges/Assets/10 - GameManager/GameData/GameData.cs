@@ -8,8 +8,8 @@ public class GameData : ScriptableObject
 
     // Island Percentage values
     //-------------------------
-    public float healthPercent = 20.0f;
-    public float enemiesPercent = 60.0f;
+    public float healthPercent = 10.0f;
+    public float enemiesPercent = 80.0f;
 
     // Number points when player is hit by skulls
     public int playerHitPoints = 2;
@@ -19,4 +19,6 @@ public class GameData : ScriptableObject
 
     // Game startup default level
     public int defaultGameLevel = 5;
+
+    public readonly string PLAYER_NAME_TAG = "Player";
 }

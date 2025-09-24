@@ -5,10 +5,13 @@ using UnityEngine.AI;
 public class BridgeCntrl : MonoBehaviour
 {
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject bridgePrefab;
 
     private NavMeshObstacle navMeshObstacle;
 
     private bool bridgeTrigger = false;
+
+    private bool alreadyBlown = false;
 
     void Start()
     {
@@ -27,6 +30,11 @@ public class BridgeCntrl : MonoBehaviour
     public void SetTrigger()
     {
         bridgeTrigger = true;
+
+        if (navMeshObstacle)
+        {
+            navMeshObstacle.carving = true;
+        }
     }
 
     /**
@@ -36,11 +44,11 @@ public class BridgeCntrl : MonoBehaviour
      */
     public void DestroyBridge()
     {
-        navMeshObstacle.carving = false;
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(explosion, 4.0f);
         //Destroy(gameObject);
-        gameObject.SetActive(false);
+        bridgePrefab.SetActive(false);
+        alreadyBlown = true;
     }
 
     /**
@@ -53,13 +61,16 @@ public class BridgeCntrl : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<PlayerCntrl>(out PlayerCntrl playerCntrl))
         {
-            Debug.Log($"Bridge Trigger: {bridgeTrigger}");
-
             if (bridgeTrigger)
             {
-                EventManager.Instance.InvokeOnResetPlayer(this);
+                if (!alreadyBlown)
+                {
+                    EventManager.Instance.InvokeOnResetPlayer(this);
+                }
             } else
             {
+                navMeshObstacle.enabled = false;
+
                 int layerMask = LayerMask.GetMask("Skull");
                 Collider[] hitColliders = Physics.OverlapSphere(other.transform.position, 10.0f, layerMask);
 

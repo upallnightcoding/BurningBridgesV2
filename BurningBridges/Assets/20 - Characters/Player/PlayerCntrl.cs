@@ -11,7 +11,6 @@ public class PlayerCntrl : MonoBehaviour
     [SerializeField] private GameObject lobWeaponPrefab;
     [SerializeField] private GameObject straightWeaponPrefab;
     [SerializeField] private Transform firePoint;
-   
 
     private LayerMask enemyLayerMask;
 
@@ -89,7 +88,8 @@ public class PlayerCntrl : MonoBehaviour
             Vector3 angles = transform.rotation.eulerAngles;
             go.transform.localRotation = Quaternion.Euler(-45.0f, angles.y, 0.0f);
             go.transform.position = firePoint.position;
-            Destroy(go, 4.0f);
+            go.tag = gameData.PLAYER_NAME_TAG;
+            Destroy(go, 1.0f);
         }
     }
 
@@ -101,7 +101,8 @@ public class PlayerCntrl : MonoBehaviour
             Vector3 angles = transform.rotation.eulerAngles;
             go.transform.forward = AssistedAiming();
             go.transform.position = firePoint.position;
-            Destroy(go, 4.0f);
+            go.tag = gameData.PLAYER_NAME_TAG;
+            Destroy(go, 1.0f);
         }
     }
 

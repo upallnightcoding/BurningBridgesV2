@@ -45,8 +45,6 @@ public class EnemyCntrl : MonoBehaviour
         }
     }
 
-   
-
     /**
      * State_Idle() - 
      */

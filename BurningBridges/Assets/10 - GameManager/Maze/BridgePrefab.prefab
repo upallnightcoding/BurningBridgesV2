@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e9e99963c6f3f4494c1b96e69b4bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 3905122447053603340, guid: 04e18811a480ffa4c9cf3648b78548ac, type: 3}
+  bridgePrefab: {fileID: 6423434928656087178}
 --- !u!65 &7248151826452588927
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81,7 +82,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 2.76}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.12, z: 0}
   m_TimeToStationary: 0.5
@@ -100,6 +101,10 @@ PrefabInstance:
     - target: {fileID: 1899264335064242, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1899264335064242, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4806163351075272, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,6 +151,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
+--- !u!1 &6423434928656087178 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1899264335064242, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
+  m_PrefabInstance: {fileID: 6422730473220822072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6427494802776042992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4806163351075272, guid: 44a7a37c88a45ae4f929530064e3a024, type: 3}
