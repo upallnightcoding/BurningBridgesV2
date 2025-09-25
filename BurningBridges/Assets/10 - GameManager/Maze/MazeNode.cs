@@ -29,6 +29,27 @@ public class MazeNode
         this.h = h;
     }
 
+    /**
+     * GetDirection() - 
+     */
+    public MazeNodeDir GetDirection(MazeNode node)
+    {
+        int northSouth = node.Geth() - Geth();
+        int eastWest = node.Getw() - Getw();
+
+        MazeNodeDir direction = MazeNodeDir.NONE;
+
+        if (northSouth == 0)
+        {
+            direction = (eastWest == 1) ? MazeNodeDir.EAST : MazeNodeDir.WEST;
+        } else if (eastWest == 0)
+        {
+            direction = (northSouth == 1) ? MazeNodeDir.NORTH : MazeNodeDir.SOUTH;
+        }
+
+        return (direction);
+    }
+
     public void PrintIt(string text)
     {
         Debug.Log($"{text}: {w},{h}");

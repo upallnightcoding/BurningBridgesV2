@@ -8,6 +8,8 @@ public class MazeCntrl : MonoBehaviour
     [SerializeField] private GameData gameData;
     [SerializeField] private GameObject mazeNodePrefab;
     [SerializeField] private GameObject player;
+    [SerializeField] private Transform arrowLayerParent;
+    [SerializeField] private GameObject arrowPrefab;
 
     private float islandDistance = 0.0f;
     private int width = 5;
@@ -48,6 +50,8 @@ public class MazeCntrl : MonoBehaviour
         RenderMaze(parent);
 
         PositionPlayer();
+
+        BuildDirectionArrows(arrowLayerParent);
 
         navMeshSurface.BuildNavMesh();
     }
@@ -266,6 +270,39 @@ public class MazeCntrl : MonoBehaviour
                 Vector3 posStart = new(mazePath[i - 1].Getw() * islandDistance, 0.0f, mazePath[i - 1].Geth() * islandDistance);
                 Vector3 posEnd = new(mazePath[i].Getw() * islandDistance, 0.0f, mazePath[i].Geth() * islandDistance);
                 Gizmos.DrawLine(posStart, posEnd);
+            }
+        }
+    }
+
+    private void BuildDirectionArrows(Transform parent)
+    {
+        if (pathSize > 0)
+        {
+            for (int i = 1; i < pathSize; i++)
+            {
+                //Vector3 posStart = new(mazePath[i - 1].Getw() * islandDistance, 0.0f, mazePath[i - 1].Geth() * islandDistance);
+                //Vector3 posEnd = new(mazePath[i].Getw() * islandDistance, 0.0f, mazePath[i].Geth() * islandDistance);
+                //Gizmos.DrawLine(posStart, posEnd);
+
+                MazeNodeDir direction = mazePath[i - 1].GetDirection(mazePath[i]);
+
+                GameObject mazeNode = Instantiate(arrowPrefab, arrowLayerParent);
+                mazeNode.transform.localPosition = new Vector3(mazePath[i - 1].Getw() * islandDistance, 0.0f, mazePath[i - 1].Geth() * islandDistance);
+
+                switch (direction)
+                {
+                    case MazeNodeDir.NORTH:
+                        break;
+                    case MazeNodeDir.SOUTH:
+                        mazeNode.transform.localRotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+                        break;
+                    case MazeNodeDir.EAST:
+                        mazeNode.transform.localRotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+                        break;
+                    case MazeNodeDir.WEST:
+                        mazeNode.transform.localRotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
+                        break;
+                }
             }
         }
     }

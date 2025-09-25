@@ -4,6 +4,7 @@ using UnityEngine.AI;
 
 public class BridgeCntrl : MonoBehaviour
 {
+    [SerializeField] private GameData gameData;
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private GameObject bridgePrefab;
 
@@ -46,9 +47,9 @@ public class BridgeCntrl : MonoBehaviour
     {
         GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(explosion, 4.0f);
-        //Destroy(gameObject);
         bridgePrefab.SetActive(false);
         alreadyBlown = true;
+        EventManager.Instance.InvokeOnPlayerHit(gameData.playerBridgeHitPoints);
     }
 
     /**

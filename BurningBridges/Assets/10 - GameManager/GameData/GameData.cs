@@ -3,19 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameData", menuName = "Bridge Burning/GameData")]
 public class GameData : ScriptableObject
 {
-    // Distance from player to enemy
+    [Header("Game Distances ...")]
     public float enemyTargetDistance = 30.0f;
+    public float islandDistance = 30.69f;
 
-    // Island Percentage values
-    //-------------------------
+    [Header("Environment Token Percentage ...")]
     public float healthPercent = 10.0f;
     public float enemiesPercent = 80.0f;
 
-    // Number points when player is hit by skulls
-    public int playerHitPoints = 2;
-
-    // Distance betwween islands
-    public float islandDistance = 30.69f;
+    [Header("Player Hit Points ...")]
+    public int playerHitPoints = 3;
+    public int playerBridgeHitPoints = 1;
 
     // Game startup default level
     public int defaultGameLevel = 5;
