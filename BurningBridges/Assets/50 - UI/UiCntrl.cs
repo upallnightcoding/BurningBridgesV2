@@ -17,11 +17,14 @@ public class UiCntrl : MonoBehaviour
 
     [SerializeField] private TMP_Text gameLevelText;
     [SerializeField] private TMP_Text enemyCountText;
+    [SerializeField] private TMP_Text hintText;
 
     [SerializeField] private Slider healthSlider;
 
     [SerializeField] private MazeCntrl mazeCntrl;
     [SerializeField] private TMP_Text gameTimeText;
+
+    [SerializeField] private GameObject arrowLayerParent;
 
     [Header("Mini Map ...")]
     [SerializeField] private RectTransform miniMapContainer;
@@ -32,6 +35,8 @@ public class UiCntrl : MonoBehaviour
     private bool gameTimeSwitch = true;
 
     private int enemyCount = 0;
+
+    private int nHints = 0;
 
     private int playerHealth = 100;
 
@@ -66,8 +71,11 @@ public class UiCntrl : MonoBehaviour
         UnRenderPanels();
 
         playerHealth = 100;
+        nHints = gameData.nArrowHints;
 
         gamePlayPanel.SetActive(true);
+
+        UpdateHintText();
 
         StartCoroutine(UpdateTiming());
     }
@@ -119,6 +127,40 @@ public class UiCntrl : MonoBehaviour
 
         RenderYouLoseBanner(false);
         RenderMainMenuPanel();
+    }
+
+    /**
+     * OnHintButton() - Is executed when the player needs a hint.  The counter
+     * determines if the player has not used up all of their hint options.
+     * If there are no hints left the arrows are not rendered.
+     */
+    public void OnHintButton()
+    {
+        if (nHints-- > 0)
+        {
+            StartCoroutine(OnHintButtonSync());
+        } 
+    }
+
+    private IEnumerator OnHintButtonSync()
+    {
+        UpdateHintText();
+        arrowLayerParent.SetActive(true);
+
+        yield return new WaitForSeconds(gameData.arrowDirectionTimer);
+
+        arrowLayerParent.SetActive(false);
+    }
+
+    private void UpdateHintText()
+    {
+        if (nHints > 0)
+        {
+            hintText.text = "Hint - " + nHints;
+        } else
+        {
+            hintText.text = "No Hints Left";
+        }
     }
 
     public void OnSliderValueChanged(float value)

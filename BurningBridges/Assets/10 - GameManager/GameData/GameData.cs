@@ -18,5 +18,9 @@ public class GameData : ScriptableObject
     // Game startup default level
     public int defaultGameLevel = 5;
 
+    public float arrowDirectionTimer = 5.0f;
+
+    public int nArrowHints = 3;
+
     public readonly string PLAYER_NAME_TAG = "Player";
 }
