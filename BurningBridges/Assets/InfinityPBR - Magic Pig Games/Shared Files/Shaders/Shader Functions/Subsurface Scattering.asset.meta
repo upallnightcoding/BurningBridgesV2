@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5fc3947ab881fac449027203ace33981
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 175670
+  packageName: Low Poly Character - Dragons - Fantasy RPG
+  packageVersion: 4.3.2
+  assetPath: Assets/InfinityPBR - Magic Pig Games/Shared Files/Shaders/Shader Functions/Subsurface
+    Scattering.asset
+  uploadId: 738117

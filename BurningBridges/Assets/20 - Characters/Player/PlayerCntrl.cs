@@ -10,7 +10,9 @@ public class PlayerCntrl : MonoBehaviour
     [SerializeField] private GameData gameData;
     [SerializeField] private GameObject lobWeaponPrefab;
     [SerializeField] private GameObject straightWeaponPrefab;
+    [SerializeField] private AudioClip straightWeaponAudioClip;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private AudioSource audioSource;
 
     private LayerMask enemyLayerMask;
 
@@ -98,11 +100,12 @@ public class PlayerCntrl : MonoBehaviour
         if (context.performed)
         {
             GameObject go = Instantiate(straightWeaponPrefab);
-            Vector3 angles = transform.rotation.eulerAngles;
             go.transform.forward = AssistedAiming();
             go.transform.position = firePoint.position;
             go.tag = gameData.PLAYER_NAME_TAG;
             Destroy(go, 1.0f);
+            audioSource.volume = 1.0f;
+            audioSource.PlayOneShot(straightWeaponAudioClip);
         }
     }
 

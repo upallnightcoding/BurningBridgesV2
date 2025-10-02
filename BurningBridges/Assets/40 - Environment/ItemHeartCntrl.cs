@@ -8,14 +8,12 @@ public class ItemHeartCntrl : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($"On Collission Enter ...");
+        if (other.gameObject.tag == "Player")
+        {
+            EventManager.Instance.InvokeOnPlayerHit(-5);
+            Destroy(gameObject);
+        }
     }
 }

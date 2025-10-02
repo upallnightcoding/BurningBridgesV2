@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class UiCntrl : MonoBehaviour
 {
@@ -30,6 +31,14 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private RectTransform miniMapContainer;
     [SerializeField] private GameObject enemyPrefab;
 
+    [Header("Initial Controller Buttons ...")]
+    [SerializeField] private GameObject settingsBackButton;
+    [SerializeField] private GameObject newGameButton;
+
+    [Header("Volumn Slider ...")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private TMP_Text audioSourceText;
+
     private float gameTimeCalc = 1.0f;
     private int gameTimeSec = 0;
     private bool gameTimeSwitch = true;
@@ -55,10 +64,15 @@ public class UiCntrl : MonoBehaviour
         mainMenuPanel.SetActive(true);
 
         gameTimeSwitch = false;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(newGameButton);
     }
 
     public void RenderSettingsPanel()
     {
+        EventSystem.current.SetSelectedGameObject(settingsBackButton);
+
         UnRenderPanels();
 
         settingsPanel.SetActive(true);
@@ -156,7 +170,7 @@ public class UiCntrl : MonoBehaviour
     {
         if (nHints > 0)
         {
-            hintText.text = "Hint - " + nHints;
+            hintText.text = "(H)int - " + nHints;
         } else
         {
             hintText.text = "No Hints Left";
@@ -165,9 +179,13 @@ public class UiCntrl : MonoBehaviour
 
     public void OnSliderValueChanged(float value)
     {
-        gameLevelText.text = "Game Level: " + ((int)value).ToString();
-
         EventManager.Instance.InvokeOnLevelChange((int)value);
+    }
+
+    public void OnSliderVolumnChanged(float value)
+    {
+        audioSource.volume = value;
+        audioSourceText.text = $"Volumn: {value:F1}";
     }
 
     /**

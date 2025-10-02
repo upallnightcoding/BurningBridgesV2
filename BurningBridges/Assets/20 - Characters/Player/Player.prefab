@@ -161,7 +161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6422578548906472754
 Transform:
   m_ObjectHideFlags: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   lobWeaponPrefab: {fileID: 5099633350062202905, guid: 9c2c3b85ab22e644e8c8c8c1ff6eb29d, type: 3}
   straightWeaponPrefab: {fileID: 946559761465430865, guid: 8bc00bd5060642f418f20a6711eb74a8, type: 3}
   firePoint: {fileID: 710022087404632540}
+  audioSource: {fileID: 0}
 --- !u!114 &888167233327508913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +360,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.9737775, y: 1.7771935, z: 3.9791017}
+  m_Size: {x: 1.88, y: 1.67, z: 1.9}
   m_Center: {x: -0.006756425, y: 1.0206084, z: -0.0019821525}
 --- !u!54 &3670565917787874289
 Rigidbody:

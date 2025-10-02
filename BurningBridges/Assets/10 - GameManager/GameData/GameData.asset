@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTargetDistance: 30
   islandDistance: 30.69
-  healthPercent: 10
-  enemiesPercent: 80
+  healthPercent: 15
+  enemiesPercent: 75
   playerHitPoints: 2
   playerBridgeHitPoints: 1
   defaultGameLevel: 5
+  arrowDirectionTimer: 5
+  nArrowHints: 3
