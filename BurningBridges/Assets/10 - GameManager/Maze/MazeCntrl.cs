@@ -206,6 +206,8 @@ public class MazeCntrl : MonoBehaviour
                 mazeNode.transform.SetLocalPositionAndRotation(position, Quaternion.identity);
 
                 RenderNode(mazeNode, w, h);
+
+                mazeNode.GetComponent<MazeNodeCntrl>().BuildCorners();
             }
         }
 

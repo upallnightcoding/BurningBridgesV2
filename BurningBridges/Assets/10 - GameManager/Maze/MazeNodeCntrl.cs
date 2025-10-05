@@ -26,6 +26,12 @@ public class MazeNodeCntrl : MonoBehaviour
     [SerializeField] private GameObject treasurePrefab;
     [SerializeField] private GameObject arrowPrefab;
 
+    [SerializeField] private GameObject[] planesPrefab;
+    [SerializeField] private Transform planeNW;
+    [SerializeField] private Transform planeNE;
+    [SerializeField] private Transform planeSW;
+    [SerializeField] private Transform planeSE;
+
     private MazeNode node = null;
 
     private PlayerCntrl playerCntrl = null;
@@ -99,6 +105,37 @@ public class MazeNodeCntrl : MonoBehaviour
                 go.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
                 break;
         }
+    }
+
+    public void BuildCorners()
+    {
+        Embellish embellish = new Embellish();
+
+        BuildEmbellishConers(embellish, planeNW, 4.0f, 3.0f, 5.0f, 180.0f, 5, 10);
+        BuildEmbellishConers(embellish, planeNE, 4.0f, 3.0f, 5.0f, 180.0f, 5, 10);
+        BuildEmbellishConers(embellish, planeSW, 4.0f, 3.0f, 5.0f, 180.0f, 5, 10);
+        BuildEmbellishConers(embellish, planeSE, 4.0f, 3.0f, 5.0f, 180.0f, 5, 10);
+    }
+
+    private void BuildEmbellishConers(
+        Embellish embellish, 
+        Transform parent, 
+        float volumn, 
+        float minScale, 
+        float maxScale, 
+        float rotate,
+        int offset,
+        int n
+    )
+    {
+        embellish.
+           PrefabList(planesPrefab).
+           Parent(parent).
+           Volumn(-volumn, volumn, -volumn, volumn).
+           Scale(minScale, maxScale, minScale, maxScale, minScale, maxScale).
+           Rotate(0.0f, 0.0f, 0.0f, rotate, 0.0f, 0.0f).
+           OffSet(offset).
+           Platform(n);
     }
 
     /**

@@ -8,6 +8,8 @@ public class Embellish
 
     private int nPrefabList = 0;
 
+    private int offset = 0;
+
     private XYZMinMax xyzRotate = null;
     private XYZMinMax xyzScale = null;
 
@@ -70,6 +72,30 @@ public class Embellish
         return (this);
     }
 
+    public Embellish OffSet(int offset)
+    {
+        this.offset = offset;
+
+        return (this);
+    }
+
+    public void Platform(int nPlatform)
+    {
+        int n = GetRandom(nPlatform) + offset;
+
+        for (int i = 0; i < n; i++)
+        {
+            float x = Random.Range(xMin, xMax);
+            float z = Random.Range(zMin, zMax);
+
+            GameObject go = Object.Instantiate(prefabList[GetRandom(nPrefabList)], parent);
+            go.transform.localPosition = new Vector3(x, 0.0f, z);
+
+            if (xyzRotate != null) go.transform.localRotation = Quaternion.Euler(xyzRotate.GetRandomVector());
+            if (xyzScale != null) go.transform.localScale = xyzScale.GetRandomVector();
+        }
+    }
+
     public void Cluster(int n, int nCluster)
     {
         for (int i = 0; i < n; i++)
@@ -94,8 +120,8 @@ public class Embellish
 
                     go.transform.position = new Vector3(position.x, y, position.y);
 
-                    if (xyzRotate != null) go.transform.localRotation = Quaternion.Euler(xyzRotate.GetVector());
-                    if (xyzScale != null) go.transform.localScale = xyzScale.GetVector();
+                    if (xyzRotate != null) go.transform.localRotation = Quaternion.Euler(xyzRotate.GetRandomVector());
+                    if (xyzScale != null) go.transform.localScale = xyzScale.GetRandomVector();
                 }
             }
         }
@@ -119,8 +145,8 @@ public class Embellish
                 float y = hit[0].collider.gameObject.transform.position.y;
                 go.transform.position = new Vector3(x, y, z);
 
-                if (xyzRotate != null) go.transform.localRotation = Quaternion.Euler(xyzRotate.GetVector());
-                if (xyzScale != null) go.transform.localScale = xyzScale.GetVector();
+                if (xyzRotate != null) go.transform.localRotation = Quaternion.Euler(xyzRotate.GetRandomVector());
+                if (xyzScale != null) go.transform.localScale = xyzScale.GetRandomVector();
             } 
         }
     }
@@ -144,7 +170,7 @@ public class XYZMinMax
         z = new MinMax(zMin, zMax);
     }
 
-    public Vector3 GetVector()
+    public Vector3 GetRandomVector()
     {
         return (new Vector3(x.GetRandom(), y.GetRandom(), z.GetRandom()));
     }

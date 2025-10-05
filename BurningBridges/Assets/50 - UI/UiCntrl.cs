@@ -179,13 +179,17 @@ public class UiCntrl : MonoBehaviour
 
     public void OnSliderValueChanged(float value)
     {
-        EventManager.Instance.InvokeOnLevelChange((int)value);
+        int level = (int)value;
+
+        EventManager.Instance.InvokeOnLevelChange(level);
+
+        gameLevelText.text = "Game Level: " + level;
     }
 
     public void OnSliderVolumnChanged(float value)
     {
         audioSource.volume = value;
-        audioSourceText.text = $"Volumn: {value:F1}";
+        audioSourceText.text = $"Volumn: {(int)(value * 10.0f)}";
     }
 
     /**

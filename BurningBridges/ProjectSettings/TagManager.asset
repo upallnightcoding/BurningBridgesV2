@@ -9,6 +9,8 @@ TagManager:
   - ScreenCamera
   - cockpit_capitalLaser
   - Water
+  - Item
+  - Enemy
   layers:
   - Default
   - TransparentFX

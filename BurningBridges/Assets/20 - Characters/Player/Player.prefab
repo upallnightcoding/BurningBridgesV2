@@ -161,7 +161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6422578548906472754
 Transform:
   m_ObjectHideFlags: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   gameData: {fileID: 11400000, guid: 6d6ebc02b60a1f141a59185a768c7056, type: 2}
   lobWeaponPrefab: {fileID: 5099633350062202905, guid: 9c2c3b85ab22e644e8c8c8c1ff6eb29d, type: 3}
   straightWeaponPrefab: {fileID: 946559761465430865, guid: 8bc00bd5060642f418f20a6711eb74a8, type: 3}
+  straightWeaponAudioClip: {fileID: 0}
   firePoint: {fileID: 710022087404632540}
   audioSource: {fileID: 0}
 --- !u!114 &888167233327508913

@@ -171,4 +171,24 @@ public class PlayerCntrl : MonoBehaviour
     {
         EventManager.Instance.InvokeOnPlayerHit(gameData.playerHitPoints);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log($"Player On Collision Enter ... {collision.transform.tag}");
+
+        if (collision.transform.tag == "Enemy")
+        {
+            EventManager.Instance.InvokeOnPlayerHit(1);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log($"Player On Trigger Enter ... {other.transform.tag}");
+
+        if (other.transform.tag == "Enemy")
+        {
+            EventManager.Instance.InvokeOnPlayerHit(1);
+        }
+    }
 }
