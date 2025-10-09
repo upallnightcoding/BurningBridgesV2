@@ -13,6 +13,7 @@ public class PlayerCntrl : MonoBehaviour
     [SerializeField] private AudioClip straightWeaponAudioClip;
     [SerializeField] private Transform firePoint;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private bool canMove = true;
 
     private LayerMask enemyLayerMask;
 
@@ -39,8 +40,20 @@ public class PlayerCntrl : MonoBehaviour
         animator.SetBool("run", true);
     }
 
+    public void StopMoving()
+    {
+        canMove = false;
+    }
+
+    public void StartMoving()
+    {
+        canMove = true;
+    }
+
     void Update()
     {
+        if (!canMove) return;
+
         moveDirection.x = playerMove.x; // * shutOffXAxis; // Horizontal
         moveDirection.y = 0.0f;
         moveDirection.z = playerMove.y; // * shutOffZAxis; // Vertical

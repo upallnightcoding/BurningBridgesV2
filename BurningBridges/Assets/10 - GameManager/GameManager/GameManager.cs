@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
     {
         uiCntrl.RenderGamePlayPanel();
 
-        StartCoroutine(CreateMaze());
+        StartCoroutine(NewGameMenu());
     }
 
-    private IEnumerator CreateMaze()
+    private IEnumerator NewGameMenu()
     {
         mazeCntrl.StartNewGame(envirCntrl.transform);
 

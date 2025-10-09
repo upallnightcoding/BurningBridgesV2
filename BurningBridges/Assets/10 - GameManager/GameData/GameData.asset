@@ -21,3 +21,4 @@ MonoBehaviour:
   defaultGameLevel: 5
   arrowDirectionTimer: 5
   nArrowHints: 3
+  playerHealth: 10

@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.AI;
 
 public class UiCntrl : MonoBehaviour
 {
@@ -55,6 +57,8 @@ public class UiCntrl : MonoBehaviour
     void Start()
     {
         RenderMainMenuPanel();
+
+        playerHealth = gameData.playerHealth;
     }
 
     public void RenderMainMenuPanel()
@@ -164,6 +168,14 @@ public class UiCntrl : MonoBehaviour
         yield return new WaitForSeconds(gameData.arrowDirectionTimer);
 
         arrowLayerParent.SetActive(false);
+    }
+
+    public void BKey(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log($"B Key ...");
+        }
     }
 
     private void UpdateHintText()

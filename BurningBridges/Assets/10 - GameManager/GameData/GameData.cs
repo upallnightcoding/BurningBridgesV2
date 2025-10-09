@@ -23,4 +23,6 @@ public class GameData : ScriptableObject
     public int nArrowHints = 3;
 
     public readonly string PLAYER_NAME_TAG = "Player";
+
+    public int playerHealth = 100;
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using System.Collections;
+using UnityEngine.AI;
 
 public class MazeCntrl : MonoBehaviour
 {
@@ -41,6 +42,15 @@ public class MazeCntrl : MonoBehaviour
 
     public void StartNewGame(Transform parent)
     {
+        StartCoroutine(StartNewGameFrame(parent));
+    }
+
+    public IEnumerator StartNewGameFrame(Transform parent)
+    {
+        ClearExistingGame(parent);
+
+        yield return null;
+
         InitializeMaze();
 
         CreateMaze();
@@ -49,11 +59,46 @@ public class MazeCntrl : MonoBehaviour
 
         RenderMaze(parent);
 
+        yield return null;
+
         PositionPlayer();
 
         BuildDirectionArrows(arrowLayerParent);
 
+        yield return null;
+
         navMeshSurface.BuildNavMesh();
+    }
+
+    private void ClearExistingGame(Transform parent)
+    {
+        player.GetComponent<PlayerCntrl>().StopMoving();
+
+        //navMeshSurface.RemoveData();
+        NavMesh.RemoveAllNavMeshData();
+        Destroy(navMeshSurface);
+
+        RemoveAllChildObjects(parent);
+        RemoveAllChildObjects(transform);
+
+        navMeshSurface = gameObject.AddComponent<NavMeshSurface>();
+
+        player.GetComponent<PlayerCntrl>().StartMoving();
+    }
+
+    private void RemoveAllChildObjects(Transform parent)
+    {
+        List<GameObject> destoryList = new List<GameObject>();
+
+        foreach (Transform child in parent)
+        {
+            if (child.name != "Water")
+            {
+                destoryList.Add(child.gameObject);
+            }
+        }
+
+        foreach (GameObject go in destoryList) Destroy(go);
     }
 
     private void ChangeGameLevel(int level)
