@@ -29,6 +29,8 @@ public class MazeCntrl : MonoBehaviour
 
     private void Awake()
     {
+        Random.InitState(gameData.randomSeed);
+        
         navMeshSurface = GetComponent<NavMeshSurface>();
     }
 
@@ -72,16 +74,15 @@ public class MazeCntrl : MonoBehaviour
 
     private void ClearExistingGame(Transform parent)
     {
+        pathSize = 0;
+
         player.GetComponent<PlayerCntrl>().StopMoving();
 
-        //navMeshSurface.RemoveData();
         NavMesh.RemoveAllNavMeshData();
-        Destroy(navMeshSurface);
 
         RemoveAllChildObjects(parent);
         RemoveAllChildObjects(transform);
-
-        navMeshSurface = gameObject.AddComponent<NavMeshSurface>();
+        RemoveAllChildObjects(arrowLayerParent);
 
         player.GetComponent<PlayerCntrl>().StartMoving();
     }
@@ -120,15 +121,6 @@ public class MazeCntrl : MonoBehaviour
         bridgeCntrl.DestroyBridge();
 
         //StartCoroutine(BuildNavMesh());
-    }
-
-    private IEnumerator BuildNavMesh()
-    {
-        yield return new WaitForEndOfFrame();
-        navMeshSurface.RemoveData();
-        navMeshSurface.BuildNavMesh();
-
-        yield return new WaitForEndOfFrame();
     }
 
     /**
@@ -266,18 +258,14 @@ public class MazeCntrl : MonoBehaviour
         MazeNode[] suffleMazeNodes = new MazeNode[width * height];
         int shuffle = 0, n = width * height;
 
-        mazePath[0].MarkAsStartNode();
-        playerStartPos = mazePath[0].GetPosition(islandDistance);
-        mazePath[mazePath.Length - 1].MarkAsEndingNode();
-
         for (int w = 0; w < width; w++)
         {
             for (int h = 0; h < height; h++)
             {
-                if (!mazeNode[w, h].isStartOrEnd())
-                {
+                //if (!mazeNode[w, h].isStartOrEnd())
+                //{
                     suffleMazeNodes[shuffle++] = mazeNode[w, h];
-                }
+                //}
             }
         }
 
@@ -304,6 +292,10 @@ public class MazeCntrl : MonoBehaviour
         {
             suffleMazeNodes[mark++].MarkAsEnemy(); 
         }
+
+        mazePath[0].MarkAsStartNode();
+        playerStartPos = mazePath[0].GetPosition(islandDistance);
+        mazePath[mazePath.Length - 1].MarkAsEndingNode();
     }
 
     private void OnDrawGizmos()

@@ -15,6 +15,9 @@ public class GameData : ScriptableObject
     public int playerHitPoints = 3;
     public int playerBridgeHitPoints = 1;
 
+    [Header("Random Seed ...")]
+    public int randomSeed = 100;
+
     // Game startup default level
     public int defaultGameLevel = 5;
 

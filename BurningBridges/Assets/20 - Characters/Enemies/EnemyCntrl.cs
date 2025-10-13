@@ -132,6 +132,8 @@ public class EnemyCntrl : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        Debug.Log($"On Particle Collision ...");
+
         if (--health == 0)
         {
             GameObject explosion = Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);

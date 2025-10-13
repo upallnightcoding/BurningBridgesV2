@@ -107,6 +107,9 @@ public class MazeNodeCntrl : MonoBehaviour
         }
     }
 
+    /**
+     * BuildCorners() - 
+     */
     public void BuildCorners()
     {
         Embellish embellish = new Embellish();

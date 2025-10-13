@@ -115,6 +115,9 @@ public class UiCntrl : MonoBehaviour
         StartCoroutine(RenderPlayerWinBanner());
     }
 
+    /**
+     * RenderPlayerWinBanner() - 
+     */
     private IEnumerator RenderPlayerWinBanner()
     {
         RenderYouWinBanner(true);
@@ -125,18 +128,27 @@ public class UiCntrl : MonoBehaviour
         RenderMainMenuPanel();
     }
 
+    /**
+     * UpdatePlayerHealth() - 
+     */
     public void UpdatePlayerHealth(int value)
     {
-        playerHealth -= value;
-
-        healthSlider.value = playerHealth / 100.0f; 
-
-        if (playerHealth <= 0)
+        if (playerHealth > 0)
         {
-            StartCoroutine(RenderPlayerLoseBanner());
+            playerHealth -= value;
+
+            healthSlider.value = playerHealth / 100.0f; 
+
+            if (playerHealth <= 0)
+            {
+                StartCoroutine(RenderPlayerLoseBanner());
+            }
         }
     }
 
+    /**
+     * RenderPlayerLoseBanner() - 
+     */
     private IEnumerator RenderPlayerLoseBanner()
     {
         RenderYouLoseBanner(true);

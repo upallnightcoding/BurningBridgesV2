@@ -117,7 +117,6 @@ public class PlayerCntrl : MonoBehaviour
             go.transform.position = firePoint.position;
             go.tag = gameData.PLAYER_NAME_TAG;
             Destroy(go, 1.0f);
-            audioSource.volume = 1.0f;
             audioSource.PlayOneShot(straightWeaponAudioClip);
         }
     }
@@ -197,8 +196,6 @@ public class PlayerCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Player On Trigger Enter ... {other.transform.tag}");
-
         if (other.transform.tag == "Enemy")
         {
             EventManager.Instance.InvokeOnPlayerHit(1);

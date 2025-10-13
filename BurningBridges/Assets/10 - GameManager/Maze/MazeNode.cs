@@ -78,9 +78,23 @@ public class MazeNode
     public void MarkAsStartNode()   => Type = MazeNodeType.STARTING;
     public void MarkAsEndingNode()  => Type = MazeNodeType.ENDING;
     public void MarkAsPathNode()    => Type = MazeNodeType.PATH;
-    public void MarkAsEnemy()       => Type = MazeNodeType.ENEMY;
-    public void MarkAsHealth()      => Type = MazeNodeType.HEALTH;
     public void MarkAsTreasure()    => Type = MazeNodeType.TREASURE;
+
+    public void MarkAsHealth()
+    {
+        if (Type == MazeNodeType.PATH)
+        {
+            Type = MazeNodeType.HEALTH;
+        }
+    }
+
+    public void MarkAsEnemy()
+    {
+        if (Type == MazeNodeType.PATH)
+        {
+            Type = MazeNodeType.ENEMY;
+        }
+    }
 }
 
 public enum MazeNodeType
