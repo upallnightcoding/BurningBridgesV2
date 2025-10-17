@@ -40,6 +40,7 @@ public class UiCntrl : MonoBehaviour
     [Header("Volumn Slider ...")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private TMP_Text audioSourceText;
+    [SerializeField] private Slider volumnSlider;
 
     private float gameTimeCalc = 1.0f;
     private int gameTimeSec = 0;
@@ -69,19 +70,18 @@ public class UiCntrl : MonoBehaviour
 
         gameTimeSwitch = false;
 
-        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(newGameButton);
     }
 
     public void RenderSettingsPanel()
     {
-        EventSystem.current.SetSelectedGameObject(settingsBackButton);
-
         UnRenderPanels();
 
         settingsPanel.SetActive(true);
 
         gameTimeSwitch = false;
+
+        EventSystem.current.SetSelectedGameObject(settingsBackButton);
     }
 
     public void RenderGamePlayPanel()
@@ -105,6 +105,11 @@ public class UiCntrl : MonoBehaviour
         gamePlayPanel.SetActive(false);
         youWinPanel.SetActive(false);
         youLosePanel.SetActive(false);
+    }
+
+    public void QuitCurrentGame()
+    {
+        RenderMainMenuPanel();
     }
 
     /**
@@ -194,7 +199,7 @@ public class UiCntrl : MonoBehaviour
     {
         if (nHints > 0)
         {
-            hintText.text = "(H)int - " + nHints;
+            hintText.text = "(B)int - " + nHints;
         } else
         {
             hintText.text = "No Hints Left";
@@ -214,6 +219,24 @@ public class UiCntrl : MonoBehaviour
     {
         audioSource.volume = value;
         audioSourceText.text = $"Volumn: {(int)(value * 10.0f)}";
+    }
+
+    public void OnSliderVolumnPlus()
+    {
+        float value = audioSource.volume;
+        value += 0.1f;
+        if (value > 1.0f) value = 1.0f;
+        OnSliderVolumnChanged(value);
+        volumnSlider.value = value;
+    }
+
+    public void OnSliderVolumnMinus()
+    {
+        float value = audioSource.volume;
+        value -= 0.1f;
+        if (value < 0.0f) value = 0.0f;
+        OnSliderVolumnChanged(value);
+        volumnSlider.value = value;
     }
 
     /**

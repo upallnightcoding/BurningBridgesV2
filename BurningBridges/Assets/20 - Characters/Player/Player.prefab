@@ -198,6 +198,7 @@ MonoBehaviour:
   straightWeaponAudioClip: {fileID: 0}
   firePoint: {fileID: 710022087404632540}
   audioSource: {fileID: 0}
+  canMove: 1
 --- !u!114 &888167233327508913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +316,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 85356e06-bc4d-401d-995d-ca21ccdcda1c
     m_ActionName: 'Player/Fire1[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 96427d30-b797-49e0-b0e9-f5c11383dec8
+    m_ActionName: 'Player/Hint[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7d98d5fc-97c8-4f4d-94c4-216b85f9d854
+    m_ActionName: 'Player/QuitGame[/XInputControllerWindows/buttonWest]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

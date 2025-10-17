@@ -43,9 +43,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "B_Key",
+                    "name": "Hint",
                     "type": "Button",
-                    "id": "d627db99-39ab-4b9e-87e0-9d6a0eb7250e",
+                    "id": "96427d30-b797-49e0-b0e9-f5c11383dec8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "QuitGame",
+                    "type": "Button",
+                    "id": "7d98d5fc-97c8-4f4d-94c4-216b85f9d854",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -308,12 +317,23 @@
                 },
                 {
                     "name": "",
-                    "id": "0b68da01-333e-44c9-939b-2ea2f4588a1e",
-                    "path": "<Keyboard>/b",
+                    "id": "0a6c5a12-1036-4b64-8ed4-8717926ff0a2",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "B_Key",
+                    "groups": ";Gamepad",
+                    "action": "Hint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c92f8c2-eeef-434e-a315-52816038e495",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "QuitGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
