@@ -42,6 +42,9 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private TMP_Text audioSourceText;
     [SerializeField] private Slider volumnSlider;
 
+    [Header("Level Slider ...")]
+    [SerializeField] private Slider levelSlider;
+
     private float gameTimeCalc = 1.0f;
     private int gameTimeSec = 0;
     private bool gameTimeSwitch = true;
@@ -89,6 +92,7 @@ public class UiCntrl : MonoBehaviour
         UnRenderPanels();
 
         playerHealth = 100;
+        enemyCount = 0;
         nHints = gameData.nArrowHints;
 
         gamePlayPanel.SetActive(true);
@@ -223,20 +227,38 @@ public class UiCntrl : MonoBehaviour
 
     public void OnSliderVolumnPlus()
     {
-        float value = audioSource.volume;
-        value += 0.1f;
-        if (value > 1.0f) value = 1.0f;
-        OnSliderVolumnChanged(value);
-        volumnSlider.value = value;
+        float currentValue = audioSource.volume;
+        currentValue += 0.1f;
+        if (currentValue > 1.0f) currentValue = 1.0f;
+        OnSliderVolumnChanged(currentValue);
+        volumnSlider.value = currentValue;
     }
 
     public void OnSliderVolumnMinus()
     {
-        float value = audioSource.volume;
-        value -= 0.1f;
-        if (value < 0.0f) value = 0.0f;
-        OnSliderVolumnChanged(value);
-        volumnSlider.value = value;
+        float currentValue = audioSource.volume;
+        currentValue -= 0.1f;
+        if (currentValue <= 0.0f) currentValue = 0.0f;
+        OnSliderVolumnChanged(currentValue);
+        volumnSlider.value = currentValue;
+    }
+
+    public void OnSliderLevelPlus()
+    {
+        float currentValue = levelSlider.value;
+        currentValue += 1.0f;
+        if (currentValue > 10.0f) currentValue = 10.0f;
+        OnSliderValueChanged(currentValue);
+        levelSlider.value = currentValue;
+    }
+
+    public void OnSliderLevelMinus()
+    {
+        float currentValue = levelSlider.value;
+        currentValue -= 1.0f;
+        if (currentValue <= 0.0f) currentValue = 0.0f;
+        OnSliderValueChanged(currentValue);
+        levelSlider.value = currentValue;
     }
 
     /**
