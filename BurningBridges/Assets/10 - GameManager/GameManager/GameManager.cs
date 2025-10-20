@@ -38,4 +38,9 @@ public class GameManager : MonoBehaviour
     {
         uiCntrl.RenderMainMenuPanel();
     }
+
+    public void QuitGame()
+    {
+        Application.Quit(0);
+    }
 }
