@@ -74,6 +74,9 @@ public class UiCntrl : MonoBehaviour
         gameTimeSwitch = false;
 
         EventSystem.current.SetSelectedGameObject(newGameButton);
+
+        nHints = 3;
+        UpdateHintText();
     }
 
     public void RenderSettingsPanel()
@@ -173,12 +176,15 @@ public class UiCntrl : MonoBehaviour
      * determines if the player has not used up all of their hint options.
      * If there are no hints left the arrows are not rendered.
      */
-    public void OnHintButton()
+    public void OnHintButton(InputAction.CallbackContext context)
     {
-        if (nHints-- > 0)
+        if (context.performed)
         {
-            StartCoroutine(OnHintButtonSync());
-        } 
+            if (nHints-- >0)
+            {
+                StartCoroutine(OnHintButtonSync());
+            }
+        }
     }
 
     private IEnumerator OnHintButtonSync()
@@ -203,10 +209,10 @@ public class UiCntrl : MonoBehaviour
     {
         if (nHints > 0)
         {
-            hintText.text = "(B)int - " + nHints;
+            hintText.text = nHints + " Hint(s)";
         } else
         {
-            hintText.text = "No Hints Left";
+            hintText.text = "No Hints";
         }
     }
 

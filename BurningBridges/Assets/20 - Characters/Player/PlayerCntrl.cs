@@ -182,6 +182,8 @@ public class PlayerCntrl : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        Debug.Log($"On Particale Collision ... {other.transform.tag}");
+
         EventManager.Instance.InvokeOnPlayerHit(gameData.playerHitPoints);
     }
 
@@ -197,6 +199,8 @@ public class PlayerCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Player On Trigger Enter ... {other.transform.tag}");
+
         if (other.transform.tag == "Enemy")
         {
             EventManager.Instance.InvokeOnPlayerHit(1);
