@@ -17,6 +17,7 @@ public class UiCntrl : MonoBehaviour
     [SerializeField] private GameObject gamePlayPanel;
     [SerializeField] private GameObject youWinPanel;
     [SerializeField] private GameObject youLosePanel;
+    [SerializeField] private GameObject directionPanel;
 
     [SerializeField] private TMP_Text gameLevelText;
     [SerializeField] private TMP_Text enemyCountText;
@@ -36,6 +37,7 @@ public class UiCntrl : MonoBehaviour
     [Header("Initial Controller Buttons ...")]
     [SerializeField] private GameObject settingsBackButton;
     [SerializeField] private GameObject newGameButton;
+    [SerializeField] private GameObject backDirectionButton;
 
     [Header("Volumn Slider ...")]
     [SerializeField] private AudioSource audioSource;
@@ -105,6 +107,15 @@ public class UiCntrl : MonoBehaviour
         StartCoroutine(UpdateTiming());
     }
 
+    public void RenderDirectionPanel()
+    {
+        UnRenderPanels();
+
+        directionPanel.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(backDirectionButton);
+    }
+
     private void UnRenderPanels()
     {
         mainMenuPanel.SetActive(false);
@@ -112,6 +123,7 @@ public class UiCntrl : MonoBehaviour
         gamePlayPanel.SetActive(false);
         youWinPanel.SetActive(false);
         youLosePanel.SetActive(false);
+        directionPanel.SetActive(false);
     }
 
     public void QuitCurrentGame()

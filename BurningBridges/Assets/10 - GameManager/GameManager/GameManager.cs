@@ -34,6 +34,11 @@ public class GameManager : MonoBehaviour
         uiCntrl.RenderSettingsPanel();
     }
 
+    public void ChronicleMenuOption()
+    {
+        uiCntrl.RenderDirectionPanel();
+    }
+
     public void SettingsBackButton()
     {
         uiCntrl.RenderMainMenuPanel();

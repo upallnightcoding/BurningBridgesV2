@@ -5,6 +5,7 @@ public class GameData : ScriptableObject
 {
     [Header("Game Distances ...")]
     public float enemyTargetDistance = 30.0f;
+    public float enemyHitPointDistance = 15.0f;
     public float islandDistance = 30.69f;
 
     [Header("Environment Token Percentage ...")]

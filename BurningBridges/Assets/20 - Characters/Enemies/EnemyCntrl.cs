@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,6 +7,7 @@ public class EnemyCntrl : MonoBehaviour
     [SerializeField] private GameObject deathExplosionPrefab;
 
     private readonly float TARGET_INTERVAL = 2.0f;
+    private readonly float POINTS_INTERVAL = 1.0f;
 
     private NavMeshAgent navMeshAgent = null;
 
@@ -18,6 +20,8 @@ public class EnemyCntrl : MonoBehaviour
     private float targetInterval;
 
     private int health = 3;
+
+    private bool checkingPlayerVicinity = true;
 
     private void Awake()
     {
@@ -90,6 +94,19 @@ public class EnemyCntrl : MonoBehaviour
         return (state);
     }
 
+    private IEnumerator CheckPlayerVicinity()
+    {
+        while (checkingPlayerVicinity)
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            if (playerCntrl.WithinHitPointEnemy(transform.position))
+            {
+                EventManager.Instance.InvokeOnPlayerHit(1);
+            }
+        }
+    }
+
     public void FollowHero()
     {
         navMeshAgent.SetDestination(playerCntrl.GetPosition());
@@ -128,12 +145,12 @@ public class EnemyCntrl : MonoBehaviour
     public void Set(PlayerCntrl playerCntrl)
     {
         this.playerCntrl = playerCntrl;
+
+        StartCoroutine(CheckPlayerVicinity());
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log($"On Particle Collision ...");
-
         if (--health == 0)
         {
             GameObject explosion = Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
@@ -141,6 +158,11 @@ public class EnemyCntrl : MonoBehaviour
             Destroy(gameObject);
             Destroy(explosion, 4.0f);
         }
+    }
+
+    private void OnDisable()
+    {
+        checkingPlayerVicinity = false;
     }
 }
 

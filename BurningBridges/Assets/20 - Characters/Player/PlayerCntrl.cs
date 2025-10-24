@@ -180,17 +180,18 @@ public class PlayerCntrl : MonoBehaviour
         return (Vector3.Distance(enemyPosition, transform.position) < gameData.enemyTargetDistance);
     }
 
+    public bool WithinHitPointEnemy(Vector3 enemyPosition)
+    {
+        return (Vector3.Distance(enemyPosition, transform.position) < gameData.enemyHitPointDistance);
+    }
+
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log($"On Particale Collision ... {other.transform.tag}");
-
         EventManager.Instance.InvokeOnPlayerHit(gameData.playerHitPoints);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Player On Collision Enter ... {collision.transform.tag}");
-
         if (collision.transform.tag == "Enemy")
         {
             EventManager.Instance.InvokeOnPlayerHit(1);
@@ -199,8 +200,6 @@ public class PlayerCntrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"Player On Trigger Enter ... {other.transform.tag}");
-
         if (other.transform.tag == "Enemy")
         {
             EventManager.Instance.InvokeOnPlayerHit(1);
