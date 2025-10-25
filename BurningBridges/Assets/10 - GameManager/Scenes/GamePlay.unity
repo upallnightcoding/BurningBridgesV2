@@ -9338,10 +9338,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 235301004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.027, y: 40.5342}
-  m_SizeDelta: {x: 1255.2239, y: 776.9205}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 111, y: -44.054993}
+  m_SizeDelta: {x: 1792.3015, y: 1024.1788}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &31252174
 MonoBehaviour:
@@ -58683,7 +58683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &235301004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58696,9 +58696,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1617418018}
   - {fileID: 31252173}
   - {fileID: 628191498}
+  - {fileID: 1617418018}
   m_Father: {fileID: 1103500665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -167765,8 +167765,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -100, y: 98}
-  m_SizeDelta: {x: 810.0392, y: 473.582}
+  m_AnchoredPosition: {x: 111, y: 0.4242}
+  m_SizeDelta: {x: 1653.15, y: 939.725}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628191499
 MonoBehaviour:
@@ -167788,8 +167788,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is the text that will be displayed to the player. and need to scroll
-    so that the player will understand how to play the game.
+  m_text: "In the valley of Chasin, villagers gather to witness a race across the
+    shattered isles.\r\nOne by one, challengers step forward, each seeking the glory
+    of reaching the distant Ikola Castle.\r\nBut this is no ordinary race. The path
+    twists through a labyrinth of fragile bridges \u2014 each a gamble between triumph
+    and ruin. <br>\r\nUse the arrow keys or your controller to guide your hero. But
+    tread carefully: some bridges are rigged to explode, chipping away at your life
+    with every careless step. Others are guarded by cursed skulls that hurl deadly
+    projectiles in hopes to end your quest. <br>\r\nBut above all, beware of the
+    restless dead \u2014 skeletons and goblins who strike without mercy. <br>\r\nBut
+    you are not without defense. Two weapons stand between you and oblivion. <br>\r\nAim
+    true, and victory may be yours. <br>\r\nAim poorly, and the valley will never
+    remember your name.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fcfcd7da3c44c554db6791d28dd79a59, type: 2}
   m_sharedMaterial: {fileID: -6627135030329028012, guid: fcfcd7da3c44c554db6791d28dd79a59, type: 2}
