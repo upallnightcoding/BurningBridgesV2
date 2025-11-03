@@ -47,6 +47,8 @@ public class UiCntrl : MonoBehaviour
     [Header("Level Slider ...")]
     [SerializeField] private Slider levelSlider;
 
+    private bool displayingBanner = false;
+
     private float gameTimeCalc = 1.0f;
     private int gameTimeSec = 0;
     private bool gameTimeSwitch = true;
@@ -74,6 +76,7 @@ public class UiCntrl : MonoBehaviour
         mainMenuPanel.SetActive(true);
 
         gameTimeSwitch = false;
+        displayingBanner = false;
 
         EventSystem.current.SetSelectedGameObject(newGameButton);
 
@@ -136,7 +139,11 @@ public class UiCntrl : MonoBehaviour
      */
     public void RenderPlayerWins()
     {
-        StartCoroutine(RenderPlayerWinBanner());
+        if (!displayingBanner)
+        {
+            displayingBanner = true;
+            StartCoroutine(RenderPlayerWinBanner());
+        }
     }
 
     /**
@@ -175,12 +182,17 @@ public class UiCntrl : MonoBehaviour
      */
     private IEnumerator RenderPlayerLoseBanner()
     {
-        RenderYouLoseBanner(true);
+        if (!displayingBanner)
+        {
+            displayingBanner = true;
 
-        yield return new WaitForSeconds(3.0f);
+            RenderYouLoseBanner(true);
 
-        RenderYouLoseBanner(false);
-        RenderMainMenuPanel();
+            yield return new WaitForSeconds(3.0f);
+
+            RenderYouLoseBanner(false);
+            RenderMainMenuPanel();
+        }
     }
 
     /**
